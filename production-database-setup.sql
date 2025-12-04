@@ -178,6 +178,17 @@ CREATE TABLE IF NOT EXISTS feedback (
 
 -- 5. Enable RLS on all tables and create policies
 ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies to avoid conflicts
+DROP POLICY IF EXISTS "Users can manage their own projects" ON projects;
+DROP POLICY IF EXISTS "Users can manage their own chats" ON chats;
+DROP POLICY IF EXISTS "Users can manage their own messages" ON messages;
+DROP POLICY IF EXISTS "Users can manage their own attachments" ON chat_attachments;
+DROP POLICY IF EXISTS "Users can manage their own keys" ON user_keys;
+DROP POLICY IF EXISTS "Users can manage their own preferences" ON user_preferences;
+DROP POLICY IF EXISTS "Users can manage their own feedback" ON feedback;
+
+-- Create new policies
 CREATE POLICY "Users can manage their own projects" ON projects
 FOR ALL USING (auth.uid() = user_id);
 
