@@ -8,10 +8,25 @@ import { useState } from "react"
 import { MessageSquare, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
+interface FeedbackItem {
+  id: string
+  message: string
+  created_at: string
+  users: {
+    email: string
+    display_name?: string
+  }
+}
+
+interface FeedbackResponse {
+  feedback: FeedbackItem[]
+  total: number
+}
+
 export function FeedbackManagement() {
   const [page, setPage] = useState(1)
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<FeedbackResponse>({
     queryKey: ["admin-feedback", page],
     queryFn: async () => {
       const response = await fetchClient(`/api/admin/feedback?page=${page}&limit=20`)
@@ -73,7 +88,7 @@ export function FeedbackManagement() {
             </div>
           ) : (
             <div className="space-y-4">
-              {data?.feedback?.map((item: any) => (
+              {data?.feedback?.map((item: FeedbackItem) => (
                 <div key={item.id} className="p-4 border rounded hover:bg-gray-50">
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-center gap-2">

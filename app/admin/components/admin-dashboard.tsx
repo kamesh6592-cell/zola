@@ -7,10 +7,29 @@ import { Users, MessageSquare, Heart, Activity } from "lucide-react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 
+interface AdminStats {
+  totalUsers: number
+  authenticatedUsers: number
+  anonymousUsers: number
+  totalChats: number
+  totalMessages: number
+  totalFeedback: number
+  dailyActiveUsers: number
+  modelRequests: { model: string; count: number }[]
+  topUsers: { email: string; messageCount: number; chatCount: number }[]
+}
+
+interface SystemHealth {
+  database: string
+  lastActivity: string | null
+  uptime: number
+  memory: { used: number }
+}
+
 export function AdminDashboard() {
   const [refreshing, setRefreshing] = useState(false)
 
-  const { data: stats, isLoading, refetch } = useQuery({
+  const { data: stats, isLoading, refetch } = useQuery<AdminStats>({
     queryKey: ["admin-stats"],
     queryFn: async () => {
       const response = await fetchClient("/api/admin/stats")
@@ -20,7 +39,7 @@ export function AdminDashboard() {
     refetchInterval: 30000 // Refresh every 30 seconds
   })
 
-  const { data: health } = useQuery({
+  const { data: health } = useQuery<SystemHealth>({
     queryKey: ["admin-health"],
     queryFn: async () => {
       const response = await fetchClient("/api/admin/health")
@@ -168,7 +187,7 @@ export function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {stats.modelRequests.slice(0, 10).map((request, i) => (
+              {stats.modelRequests.slice(0, 10).map((request: { model: string; count: number }, i) => (
                 <div key={i} className="flex items-center justify-between">
                   <span className="text-sm">{request.model}</span>
                   <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
@@ -189,7 +208,7 @@ export function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {stats.topUsers.slice(0, 10).map((user, i) => (
+              {stats.topUsers.slice(0, 10).map((user: { email: string; messageCount: number }, i) => (
                 <div key={i} className="flex items-center justify-between">
                   <span className="text-sm font-medium">{user.email}</span>
                   <span className="text-sm text-muted-foreground">

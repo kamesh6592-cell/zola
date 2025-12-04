@@ -10,12 +10,28 @@ import { useState } from "react"
 import { Trash2, Crown, User, Search } from "lucide-react"
 import { toast } from "@/components/ui/toast"
 
+interface User {
+  id: string
+  email: string
+  display_name?: string
+  created_at: string
+  last_active_at?: string
+  message_count: number
+  premium: boolean
+  anonymous: boolean
+}
+
+interface UsersResponse {
+  users: User[]
+  total: number
+}
+
 export function UserManagement() {
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState("")
   const queryClient = useQueryClient()
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<UsersResponse>({
     queryKey: ["admin-users", page],
     queryFn: async () => {
       const response = await fetchClient(`/api/admin/users?page=${page}&limit=20`)
@@ -62,7 +78,7 @@ export function UserManagement() {
     }
   })
 
-  const filteredUsers = data?.users?.filter((user: any) =>
+  const filteredUsers = data?.users?.filter((user: User) =>
     user.email.toLowerCase().includes(search.toLowerCase()) ||
     user.display_name?.toLowerCase().includes(search.toLowerCase())
   ) || []
@@ -130,7 +146,7 @@ export function UserManagement() {
             </div>
           ) : (
             <div className="space-y-2">
-              {filteredUsers.map((user: any) => (
+              {filteredUsers.map((user: User) => (
                 <div key={user.id} className="flex items-center justify-between p-4 border rounded hover:bg-gray-50">
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
