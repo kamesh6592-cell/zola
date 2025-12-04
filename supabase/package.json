@@ -1,0 +1,11 @@
+{
+  "name": "aj-chat-supabase-setup",
+  "version": "1.0.0",
+  "description": "Database setup for AJ CHAT",
+  "scripts": {
+    "migrate": "node run-migrations.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  }
+}
