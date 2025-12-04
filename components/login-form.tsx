@@ -162,7 +162,7 @@ export function LoginForm({
                 </Button>
               </Field>
               <FieldDescription className="text-center">
-                Don&apos;t have an account? <Link href="/signup" className="hover:underline">Sign up</Link>
+                Sign in to access all features and start chatting with AI models
               </FieldDescription>
             </FieldGroup>
           </form>
