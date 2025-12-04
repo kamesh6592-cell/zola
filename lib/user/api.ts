@@ -33,24 +33,67 @@ export async function getUserProfile(): Promise<UserProfile | null> {
   const { supabase, user } = await getSupabaseUser()
   if (!supabase || !user) return null
 
-  const { data: userProfileData } = await supabase
-    .from("users")
-    .select("*, user_preferences(*)")
-    .eq("id", user.id)
-    .single()
+  try {
+    const { data: userProfileData } = await supabase
+      .from("users")
+      .select("*, user_preferences(*)")
+      .eq("id", user.id)
+      .single()
 
-  // Don't load anonymous users in the user store
-  if (userProfileData?.anonymous) return null
+    // Don't load anonymous users in the user store
+    if (userProfileData?.anonymous) return null
 
-  // Format user preferences if they exist
-  const formattedPreferences = userProfileData?.user_preferences
-    ? convertFromApiFormat(userProfileData.user_preferences)
-    : undefined
+    // If user exists in database, return their profile
+    if (userProfileData) {
+      const formattedPreferences = userProfileData?.user_preferences
+        ? convertFromApiFormat(userProfileData.user_preferences)
+        : undefined
 
-  return {
-    ...userProfileData,
-    profile_image: user.user_metadata?.avatar_url ?? "",
-    display_name: user.user_metadata?.name ?? "",
-    preferences: formattedPreferences,
-  } as UserProfile
+      return {
+        ...userProfileData,
+        profile_image: user.user_metadata?.avatar_url ?? "",
+        display_name: user.user_metadata?.name ?? "",
+        preferences: formattedPreferences,
+      } as UserProfile
+    }
+
+    // If user doesn't exist in database but is authenticated, create a basic profile
+    // This handles the case where user successfully authenticated but wasn't inserted properly
+    if (user.email) {
+      return {
+        id: user.id,
+        email: user.email,
+        display_name: user.user_metadata?.name ?? user.email.split('@')[0],
+        profile_image: user.user_metadata?.avatar_url ?? "",
+        anonymous: false,
+        preferences: defaultPreferences,
+        created_at: new Date().toISOString(),
+        message_count: 0,
+        premium: false,
+        favorite_models: []
+      } as UserProfile
+    }
+
+    return null
+  } catch (error) {
+    console.error("Error fetching user profile:", error)
+    
+    // Fallback: if there's an error but user is authenticated, return basic profile
+    if (user.email) {
+      return {
+        id: user.id,
+        email: user.email,
+        display_name: user.user_metadata?.name ?? user.email.split('@')[0],
+        profile_image: user.user_metadata?.avatar_url ?? "",
+        anonymous: false,
+        preferences: defaultPreferences,
+        created_at: new Date().toISOString(),
+        message_count: 0,
+        premium: false,
+        favorite_models: []
+      } as UserProfile
+    }
+    
+    return null
+  }
 }

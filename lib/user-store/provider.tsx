@@ -31,12 +31,24 @@ export function UserProvider({
   const [isLoading, setIsLoading] = useState(false)
 
   const refreshUser = async () => {
-    if (!user?.id) return
-
     setIsLoading(true)
     try {
-      const updatedUser = await fetchUserProfile(user.id)
-      if (updatedUser) setUser(updatedUser)
+      // Try to fetch user profile from the server
+      const response = await fetch('/api/user-profile')
+      if (response.ok) {
+        const userData = await response.json()
+        if (userData && userData.id) {
+          setUser(userData)
+          return
+        }
+      }
+      
+      // Fallback: if user exists but no profile, keep current user or clear
+      if (!user?.id) {
+        setUser(null)
+      }
+    } catch (error) {
+      console.error('Error refreshing user:', error)
     } finally {
       setIsLoading(false)
     }
@@ -65,6 +77,27 @@ export function UserProvider({
       setIsLoading(false)
     }
   }
+
+  // Check for authentication state changes on mount and URL changes
+  useEffect(() => {
+    // If no initial user, try to refresh to check for authenticated session
+    if (!initialUser) {
+      refreshUser()
+    }
+
+    // Listen for focus events (when user returns from OAuth)
+    const handleFocus = () => {
+      // Small delay to ensure cookies are set
+      setTimeout(() => {
+        if (!user?.id) {
+          refreshUser()
+        }
+      }, 100)
+    }
+
+    window.addEventListener('focus', handleFocus)
+    return () => window.removeEventListener('focus', handleFocus)
+  }, []) // Run only on mount
 
   // Set up realtime subscription for user data changes
   useEffect(() => {

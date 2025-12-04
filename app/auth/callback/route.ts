@@ -75,9 +75,12 @@ export async function GET(request: Request) {
     // Construct the redirect URL
     const host = request.headers.get("host")
     const protocol = host?.includes("localhost") ? "http" : "https"
-    const redirectUrl = `${protocol}://${host}${next}`
+    
+    // Always redirect to home page after successful authentication
+    // The next parameter might cause issues with user state loading
+    const redirectUrl = `${protocol}://${host}/`
 
-    // Redirect to the next page
+    // Redirect to home page
     return NextResponse.redirect(redirectUrl)
   } catch (err) {
     console.error("Unexpected auth callback error:", err)
