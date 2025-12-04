@@ -35,22 +35,44 @@ export async function validateUserIdentity(
       throw new Error("User ID does not match authenticated user")
     }
 
-    // Ensure authenticated user exists in users table
+    // With the new database trigger, users are automatically created
+    // Just verify the user exists, and if not, wait a moment for the trigger to complete
     try {
-      const { data: userExists, error: checkError } = await supabase
-        .from("users")
-        .select("id")
-        .eq("id", authData.user.id)
-        .single()
+      let retries = 0
+      const maxRetries = 3
+      
+      while (retries < maxRetries) {
+        const { data: userExists, error: checkError } = await supabase
+          .from("users")
+          .select("id")
+          .eq("id", authData.user.id)
+          .single()
 
-      if (checkError && checkError.code === "PGRST116") {
-        // User doesn't exist in users table, this is the issue!
-        console.error("Authenticated user not found in users table:", authData.user.id)
-        throw new Error("User profile not found. Please try logging out and logging in again.")
+        if (userExists) {
+          break // User found, we're good!
+        }
+
+        if (checkError && checkError.code === "PGRST116" && retries < maxRetries - 1) {
+          // User not found yet, wait a bit for the trigger to complete
+          console.log(`User not found, retrying... (${retries + 1}/${maxRetries})`)
+          await new Promise(resolve => setTimeout(resolve, 500))
+          retries++
+          continue
+        }
+
+        if (checkError && checkError.code === "PGRST116") {
+          console.error("User still not found after retries:", authData.user.id)
+          throw new Error("User profile not ready yet. Please refresh the page.")
+        }
+
+        if (checkError) {
+          console.error("Error checking user existence:", checkError)
+          throw new Error("Unable to verify user account")
+        }
       }
     } catch (err) {
-      console.error("Error checking user existence:", err)
-      throw new Error("Unable to verify user account")
+      console.error("Error in user validation:", err)
+      throw err
     }
   } else {
     const { data: userRecord, error: userError } = await supabase
