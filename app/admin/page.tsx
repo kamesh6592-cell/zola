@@ -10,16 +10,16 @@ export default async function AdminPage() {
 
   if (!isAdmin) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-        <Card className="max-w-md">
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-6">
+        <Card className="max-w-md bg-gray-800/50 border-gray-700 backdrop-blur-sm">
           <CardContent className="pt-6 text-center">
-            <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-            <h1 className="text-xl font-bold mb-2">Access Denied</h1>
-            <p className="text-muted-foreground mb-4">
+            <AlertTriangle className="h-12 w-12 text-red-400 mx-auto mb-4" />
+            <h1 className="text-xl font-bold mb-2 text-white">Access Denied</h1>
+            <p className="text-gray-300 mb-4">
               You don't have permission to access the admin panel.
             </p>
             <Link href="/">
-              <Button>Go to Home</Button>
+              <Button className="bg-blue-600 hover:bg-blue-700">Go to Home</Button>
             </Link>
           </CardContent>
         </Card>
@@ -28,7 +28,7 @@ export default async function AdminPage() {
   }
 
   return (
-    <div className="admin-page">
+    <div className="admin-page min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
       <AdminLayout />
     </div>
   )
