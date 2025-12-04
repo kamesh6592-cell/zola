@@ -5,8 +5,11 @@ import { validateCsrfToken } from "./lib/csrf"
 export async function middleware(request: NextRequest) {
   const response = await updateSession(request)
 
+  // Skip CSRF validation for auth callback (OAuth redirect)
+  const isAuthCallback = request.nextUrl.pathname === "/auth/callback"
+  
   // CSRF protection for state-changing requests
-  if (["POST", "PUT", "DELETE"].includes(request.method)) {
+  if (!isAuthCallback && ["POST", "PUT", "DELETE"].includes(request.method)) {
     const csrfCookie = request.cookies.get("csrf_token")?.value
     const headerToken = request.headers.get("x-csrf-token")
 
