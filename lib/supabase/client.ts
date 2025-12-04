@@ -3,12 +3,22 @@ import { createBrowserClient } from "@supabase/ssr"
 import { isSupabaseEnabled } from "./config"
 
 export function createClient() {
-  if (!isSupabaseEnabled) {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!isSupabaseEnabled || !supabaseUrl || !supabaseAnonKey) {
+    console.error('Supabase configuration missing:', {
+      hasUrl: !!supabaseUrl,
+      hasKey: !!supabaseAnonKey,
+      isEnabled: isSupabaseEnabled
+    })
     return null
   }
 
-  return createBrowserClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
+  try {
+    return createBrowserClient<Database>(supabaseUrl, supabaseAnonKey)
+  } catch (error) {
+    console.error('Failed to create Supabase client:', error)
+    return null
+  }
 }
