@@ -57,14 +57,14 @@ export async function GET(request: Request) {
     // The database trigger will automatically create the user profile
     // No manual insertion needed - the trigger handles everything!
     
-    // Construct redirect URL
+    // Construct redirect URL with auth success parameter
     const host = request.headers.get("host")
     const protocol = host?.includes("localhost") ? "http" : "https"
-    const redirectUrl = `${protocol}://${host}/`
+    const redirectUrl = `${protocol}://${host}/?auth=success`
 
     console.log("✅ Auth complete, redirecting to home page")
     
-    // Redirect to home page
+    // Redirect to home page with auth success flag
     return NextResponse.redirect(redirectUrl)
     
   } catch (err) {

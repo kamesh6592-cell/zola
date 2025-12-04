@@ -80,6 +80,23 @@ export function UserProvider({
 
   // Check for authentication state changes on mount and URL changes
   useEffect(() => {
+    // Check if we're coming back from auth callback
+    const urlParams = new URLSearchParams(window.location.search)
+    const authSuccess = urlParams.get('auth')
+    
+    if (authSuccess === 'success') {
+      // Clear the URL parameter
+      const newUrl = new URL(window.location.href)
+      newUrl.searchParams.delete('auth')
+      window.history.replaceState({}, '', newUrl.toString())
+      
+      // Force refresh user data
+      setTimeout(() => {
+        refreshUser()
+      }, 100)
+      return
+    }
+    
     // If no initial user, try to refresh to check for authenticated session
     if (!initialUser) {
       refreshUser()
@@ -89,14 +106,33 @@ export function UserProvider({
     const handleFocus = () => {
       // Small delay to ensure cookies are set
       setTimeout(() => {
-        if (!user?.id) {
-          refreshUser()
-        }
+        refreshUser()
       }, 100)
     }
 
+    // Listen for auth state changes (when user logs in/out)
+    const handleAuthChange = () => {
+      setTimeout(() => {
+        refreshUser()
+      }, 500)
+    }
+
+    // Listen for storage events (when auth state changes in another tab)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'supabase.auth.token' || e.key?.includes('supabase.auth')) {
+        handleAuthChange()
+      }
+    }
+
     window.addEventListener('focus', handleFocus)
-    return () => window.removeEventListener('focus', handleFocus)
+    window.addEventListener('storage', handleStorageChange)
+    window.addEventListener('pageshow', handleAuthChange)
+    
+    return () => {
+      window.removeEventListener('focus', handleFocus)
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('pageshow', handleAuthChange)
+    }
   }, []) // Run only on mount
 
   // Set up realtime subscription for user data changes
