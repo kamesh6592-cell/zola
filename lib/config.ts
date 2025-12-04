@@ -26,7 +26,7 @@ export const FREE_MODELS_IDS = [
   "openrouter:deepseek/deepseek-r1:free", // OpenRouter: FREE DeepSeek model
 ]
 
-export const MODEL_DEFAULT = "gpt-4.1-nano"
+export const MODEL_DEFAULT = "gemini-2.5-flash-lite"
 
 // Admin Configuration
 export const ADMIN_EMAILS = ["kamesh6592@gmail.com"]

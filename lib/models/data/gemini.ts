@@ -27,7 +27,7 @@ const geminiModels: ModelConfig[] = [
     modelPage: "https://deepmind.google/technologies/gemini",
     icon: "gemini",
     apiSdk: (apiKey?: string) =>
-      openproviders("gemini-1.5-flash-002", undefined, apiKey),
+      openproviders("gemini-2.5-flash-lite", undefined, apiKey),
   },
   {
     id: "gemini-1.5-flash-8b",
