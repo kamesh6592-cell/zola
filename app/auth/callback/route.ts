@@ -30,44 +30,44 @@ export async function GET(request: Request) {
     )
   }
 
-  const { data, error } = await supabase.auth.exchangeCodeForSession(code)
-
-  if (error) {
-    console.error("Auth error:", error)
-    return NextResponse.redirect(
-      `${origin}/auth/error?message=${encodeURIComponent(error.message)}`
-    )
-  }
-
-  const user = data?.user
-  if (!user || !user.id || !user.email) {
-    return NextResponse.redirect(
-      `${origin}/auth/error?message=${encodeURIComponent("Missing user info")}`
-    )
-  }
-
   try {
-    // Try to insert user only if not exists
-    const { error: insertError } = await supabaseAdmin.from("users").insert({
-      id: user.id,
-      email: user.email,
-      created_at: new Date().toISOString(),
-      message_count: 0,
-      premium: false,
-      favorite_models: [MODEL_DEFAULT],
-    })
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
-    if (insertError && insertError.code !== "23505") {
-      console.error("Error inserting user:", insertError)
+    if (error) {
+      console.error("Auth error:", error)
+      return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(error.message)}`)
     }
+
+    const user = data?.user
+    if (!user || !user.id || !user.email) {
+      return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent("Missing user info")}`)
+    }
+
+    // Try to insert user only if not exists
+    try {
+      const { error: insertError } = await supabaseAdmin.from("users").insert({
+        id: user.id,
+        email: user.email,
+        created_at: new Date().toISOString(),
+        message_count: 0,
+        premium: false,
+        favorite_models: [MODEL_DEFAULT],
+      })
+
+      if (insertError && insertError.code !== "23505") {
+        console.error("Error inserting user:", insertError)
+      }
+    } catch (err) {
+      console.error("Unexpected user insert error:", err)
+    }
+
+    const host = request.headers.get("host")
+    const protocol = host?.includes("localhost") ? "http" : "https"
+    const redirectUrl = `${protocol}://${host}${next}`
+
+    return NextResponse.redirect(redirectUrl)
   } catch (err) {
-    console.error("Unexpected user insert error:", err)
+    console.error("Unexpected auth callback error:", err)
+    return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent("Authentication failed")}`)
   }
-
-  const host = request.headers.get("host")
-  const protocol = host?.includes("localhost") ? "http" : "https"
-
-  const redirectUrl = `${protocol}://${host}${next}`
-
-  return NextResponse.redirect(redirectUrl)
 }
