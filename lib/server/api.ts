@@ -34,6 +34,24 @@ export async function validateUserIdentity(
     if (authData.user.id !== userId) {
       throw new Error("User ID does not match authenticated user")
     }
+
+    // Ensure authenticated user exists in users table
+    try {
+      const { data: userExists, error: checkError } = await supabase
+        .from("users")
+        .select("id")
+        .eq("id", authData.user.id)
+        .single()
+
+      if (checkError && checkError.code === "PGRST116") {
+        // User doesn't exist in users table, this is the issue!
+        console.error("Authenticated user not found in users table:", authData.user.id)
+        throw new Error("User profile not found. Please try logging out and logging in again.")
+      }
+    } catch (err) {
+      console.error("Error checking user existence:", err)
+      throw new Error("Unable to verify user account")
+    }
   } else {
     const { data: userRecord, error: userError } = await supabase
       .from("users")

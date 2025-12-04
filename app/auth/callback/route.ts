@@ -82,8 +82,8 @@ export async function GET(request: Request) {
           // User doesn't exist, create new record
           const { data: insertData, error: insertError } = await supabaseAdmin.from("users").insert({
             id: user.id,
-            email: user.email,
-            display_name: user.user_metadata?.name || user.email.split('@')[0],
+            email: user.email!,
+            display_name: user.user_metadata?.name || user.email!.split('@')[0],
             profile_image: user.user_metadata?.avatar_url || null,
             created_at: new Date().toISOString(),
             message_count: 0,

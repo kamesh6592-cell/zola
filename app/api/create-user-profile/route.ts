@@ -17,36 +17,30 @@ export async function POST() {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
     }
 
-    console.log("Test insertion for user:", { userId: user.id, email: user.email })
+    console.log("Creating user profile for:", { userId: user.id, email: user.email })
 
-    // Try to insert user with admin client
+    // Use admin client to create user profile
     const supabaseAdmin = await createGuestServerClient()
     if (!supabaseAdmin) {
       return NextResponse.json({ error: "Admin client not available" }, { status: 500 })
     }
 
-    // Check if user exists
-    const { data: existingUser, error: checkError } = await supabaseAdmin
+    // Check if user already exists
+    const { data: existingUser } = await supabaseAdmin
       .from("users")
       .select("*")
       .eq("id", user.id)
       .single()
 
-    if (checkError && checkError.code !== "PGRST116") {
-      console.error("Error checking user:", checkError)
-      return NextResponse.json({ error: "Error checking user", details: checkError }, { status: 500 })
-    }
-
     if (existingUser) {
-      console.log("User already exists:", existingUser)
       return NextResponse.json({ 
         message: "User already exists", 
         user: existingUser 
       })
     }
 
-    // Insert new user
-    const { data: insertData, error: insertError } = await supabaseAdmin.from("users").insert({
+    // Create new user profile
+    const { data: newUser, error: insertError } = await supabaseAdmin.from("users").insert({
       id: user.id,
       email: user.email!,
       display_name: user.user_metadata?.name || user.email!.split('@')[0],
@@ -62,24 +56,24 @@ export async function POST() {
       daily_pro_message_count: 0,
       daily_pro_reset: null,
       system_prompt: null
-    }).select()
+    }).select().single()
 
     if (insertError) {
-      console.error("Error inserting user:", insertError)
+      console.error("Error creating user profile:", insertError)
       return NextResponse.json({ 
-        error: "Failed to insert user", 
+        error: "Failed to create user profile", 
         details: insertError 
       }, { status: 500 })
     }
 
-    console.log("Successfully inserted user:", insertData)
+    console.log("Successfully created user profile:", newUser)
     return NextResponse.json({ 
-      message: "User inserted successfully", 
-      user: insertData[0] 
+      message: "User profile created successfully", 
+      user: newUser 
     })
 
   } catch (error) {
-    console.error("Test insertion error:", error)
+    console.error("Error creating user profile:", error)
     return NextResponse.json({ 
       error: "Internal server error", 
       details: error 
