@@ -69,7 +69,7 @@ const MODEL_PROVIDER_MAP: Record<string, Provider> = {
   "gemini-1.5-flash": "google",
   "gemini-1.5-flash-latest": "google",
   "gemini-1.5-flash-001": "google",
-  "gemini-1.5-flash-002": "google",
+  "gemini-2.5-flash-lite": "google",
   "gemini-1.5-flash-8b": "google",
   "gemini-1.5-flash-8b-latest": "google",
   "gemini-1.5-flash-8b-001": "google",

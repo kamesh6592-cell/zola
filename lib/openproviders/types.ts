@@ -62,7 +62,7 @@ export type GeminiModel =
   | "gemini-1.5-flash"
   | "gemini-1.5-flash-latest"
   | "gemini-1.5-flash-001"
-  | "gemini-1.5-flash-002"
+  | "gemini-2.5-flash-lite"
   | "gemini-1.5-flash-8b"
   | "gemini-1.5-flash-8b-latest"
   | "gemini-1.5-flash-8b-001"

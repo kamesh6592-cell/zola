@@ -19,7 +19,7 @@ export const NON_AUTH_ALLOWED_MODELS = ["gpt-4.1-nano"]
 export const FREE_MODELS_IDS = [
   "gpt-4o-mini",              // OpenAI: $0.15 input, $0.6 output (cheapest OpenAI)
   "claude-3-5-haiku-latest",   // Anthropic: $0.25 input, $1.25 output (cheapest Claude)
-  "gemini-1.5-flash-002",     // Google: $0.075 input, $0.3 output (cheapest Gemini)
+  "gemini-2.5-flash-lite",    // Google: $0.075 input, $0.3 output (cheapest Gemini)
   "open-mistral-7b",          // Mistral: FREE (open source)
   "sonar",                    // Perplexity: $1 input, $1 output (affordable with search)
   "openrouter:deepseek/deepseek-r1:free", // OpenRouter: FREE DeepSeek model

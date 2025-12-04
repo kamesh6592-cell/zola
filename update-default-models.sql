@@ -3,7 +3,7 @@ UPDATE users
 SET favorite_models = ARRAY[
   'gpt-4o-mini',
   'claude-3-5-haiku-latest', 
-  'gemini-1.5-flash-002',
+  'gemini-2.5-flash-lite',
   'open-mistral-7b',
   'sonar',
   'openrouter:deepseek/deepseek-r1:free'
@@ -13,7 +13,7 @@ SET favorite_models = ARRAY[
 ALTER TABLE users ALTER COLUMN favorite_models SET DEFAULT ARRAY[
   'gpt-4o-mini',
   'claude-3-5-haiku-latest', 
-  'gemini-1.5-flash-002',
+  'gemini-2.5-flash-lite',
   'open-mistral-7b',
   'sonar',
   'openrouter:deepseek/deepseek-r1:free'
@@ -31,7 +31,7 @@ BEGIN
     NEW.id, NEW.email,
     COALESCE(NEW.raw_user_meta_data->>'name', split_part(NEW.email, '@', 1)),
     NEW.raw_user_meta_data->>'avatar_url', NEW.created_at, 0, FALSE, FALSE,
-    ARRAY['gpt-4o-mini', 'claude-3-5-haiku-latest', 'gemini-1.5-flash-002', 'open-mistral-7b', 'sonar', 'openrouter:deepseek/deepseek-r1:free'],
+    ARRAY['gpt-4o-mini', 'claude-3-5-haiku-latest', 'gemini-2.5-flash-lite', 'open-mistral-7b', 'sonar', 'openrouter:deepseek/deepseek-r1:free'],
     0, NEW.created_at, NEW.created_at, 0, NEW.created_at, NULL
   ) ON CONFLICT (id) DO NOTHING;
   RETURN NEW;
@@ -48,7 +48,7 @@ BEGIN
   RAISE NOTICE 'All users now have 6 free models available:';
   RAISE NOTICE '• GPT-4o Mini (OpenAI) - $0.15/$0.60 per 1M tokens';
   RAISE NOTICE '• Claude 3.5 Haiku (Anthropic) - $0.25/$1.25 per 1M tokens';
-  RAISE NOTICE '• Gemini 1.5 Flash (Google) - $0.075/$0.30 per 1M tokens';
+  RAISE NOTICE '• Gemini 2.5 Flash Lite (Google) - $0.075/$0.30 per 1M tokens';
   RAISE NOTICE '• Mistral 7B (FREE open-source)';
   RAISE NOTICE '• Perplexity Sonar - $1/$1 per 1M tokens';
   RAISE NOTICE '• DeepSeek R1 (FREE via OpenRouter)';

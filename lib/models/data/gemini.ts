@@ -3,8 +3,8 @@ import { ModelConfig } from "../types"
 
 const geminiModels: ModelConfig[] = [
   {
-    id: "gemini-1.5-flash-002",
-    name: "Gemini 1.5 Flash 002",
+    id: "gemini-2.5-flash-lite",
+    name: "Gemini 2.5 Flash Lite",
     provider: "Google",
     providerId: "google",
     modelFamily: "Gemini",
