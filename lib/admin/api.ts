@@ -67,12 +67,12 @@ export async function getAdminStats(): Promise<AdminStats> {
 
   // Get top users by activity
   const topUsers = userStats
-    ?.filter(u => !u.anonymous && u.message_count > 0)
-    .sort((a, b) => b.message_count - a.message_count)
+    ?.filter(u => !u.anonymous && (u.message_count ?? 0) > 0)
+    .sort((a, b) => (b.message_count ?? 0) - (a.message_count ?? 0))
     .slice(0, 10)
     .map(u => ({
       email: u.email,
-      messageCount: u.message_count,
+      messageCount: u.message_count ?? 0,
       chatCount: 0 // We'll get this separately if needed
     })) || []
 
