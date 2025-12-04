@@ -53,7 +53,13 @@ export const metadata: Metadata = {
     siteName: "MEOW CHAT by AJ STUDIOZ",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/AJ.svg",
+        width: 512,
+        height: 512,
+        alt: "AJ STUDIOZ - MEOW CHAT Logo"
+      },
+      {
+        url: "/banner_ocean.jpg",
         width: 1200,
         height: 630,
         alt: "MEOW CHAT - Free AI Chat Interface"
@@ -64,7 +70,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MEOW CHAT by AJ STUDIOZ - Free AI Chat Interface",
     description: "Free AI chat with multiple models - GPT-4, Claude, Gemini, Grok. Open-source chatbot platform.",
-    images: ["/og-image.jpg"]
+    images: ["/AJ.svg", "/banner_ocean.jpg"]
   },
   robots: {
     index: true,
@@ -79,6 +85,14 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "d8d5cefb59e24d2d"
+  },
+  icons: {
+    icon: [
+      { url: "/AJ.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "32x32" }
+    ],
+    apple: "/AJ.svg",
+    shortcut: "/AJ.svg"
   }
 }
 
