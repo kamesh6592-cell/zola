@@ -192,7 +192,7 @@ export function ProjectView({ projectId }: ProjectViewProps) {
 
     if (!user?.id) {
       setIsSubmitting(false)
-      window.location.href = "/auth/login"
+      window.location.href = "/auth"
       return
     }
 

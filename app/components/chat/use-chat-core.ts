@@ -148,7 +148,7 @@ export function useChatCore({
     // Redirect unauthenticated users to login page
     if (!isAuthenticated) {
       setIsSubmitting(false)
-      window.location.href = "/auth/login"
+      window.location.href = "/auth"
       return
     }
 
@@ -422,7 +422,7 @@ export function useChatCore({
       // Redirect unauthenticated users to login page
       if (!isAuthenticated) {
         setIsSubmitting(false)
-        window.location.href = "/auth/login"
+        window.location.href = "/auth"
         return
       }
       

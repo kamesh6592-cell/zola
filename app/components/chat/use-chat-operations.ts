@@ -42,7 +42,7 @@ export function useChatOperations({
 
       if (rateData.remaining === 0 && !isAuthenticated) {
         // Redirect to sign-in page instead of showing dialog
-        window.location.href = "/auth/login"
+        window.location.href = "/auth"
         return false
       }
 
