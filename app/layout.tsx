@@ -26,9 +26,60 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "MEOW CHAT by AJ STUDIOZ",
+  title: {
+    default: "MEOW CHAT by AJ STUDIOZ - Free AI Chat Interface",
+    template: "%s | MEOW CHAT by AJ STUDIOZ"
+  },
   description:
-    "MEOW CHAT by AJ STUDIOZ is the open-source interface for AI chat. Multi-model, BYOK-ready, and fully self-hostable. Use Claude, OpenAI, Gemini, Grok, local models, and more, all in one place.",
+    "MEOW CHAT by AJ STUDIOZ - Free AI chat interface with multiple models. Chat with GPT-4, Claude, Gemini, Grok and more. Open-source, self-hostable AI chatbot platform.",
+  keywords: [
+    "meow chat", "AI chat", "free AI chat", "ChatGPT alternative", "Claude chat", 
+    "Gemini chat", "Grok chat", "AI chatbot", "open source AI", "AJ STUDIOZ",
+    "multi-model AI", "free chatbot", "AI assistant", "artificial intelligence"
+  ],
+  authors: [{ name: "AJ STUDIOZ" }],
+  creator: "AJ STUDIOZ",
+  publisher: "AJ STUDIOZ",
+  metadataBase: new URL("https://www.meowchat.ajstudioz.co.in"),
+  alternates: {
+    canonical: "https://www.meowchat.ajstudioz.co.in"
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://www.meowchat.ajstudioz.co.in",
+    title: "MEOW CHAT by AJ STUDIOZ - Free AI Chat Interface",
+    description: "Free AI chat with multiple models - GPT-4, Claude, Gemini, Grok. Open-source chatbot platform by AJ STUDIOZ.",
+    siteName: "MEOW CHAT by AJ STUDIOZ",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "MEOW CHAT - Free AI Chat Interface"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MEOW CHAT by AJ STUDIOZ - Free AI Chat Interface",
+    description: "Free AI chat with multiple models - GPT-4, Claude, Gemini, Grok. Open-source chatbot platform.",
+    images: ["/og-image.jpg"]
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1
+    }
+  },
+  verification: {
+    google: "your-google-site-verification-code"
+  }
 }
 
 export default async function RootLayout({

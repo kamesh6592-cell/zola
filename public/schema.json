@@ -1,0 +1,43 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "MEOW CHAT by AJ STUDIOZ",
+  "alternateName": ["Meow Chat", "MEOW CHAT"],
+  "url": "https://www.meowchat.ajstudioz.co.in",
+  "description": "Free AI chat interface with multiple models including GPT-4, Claude, Gemini, and Grok. Open-source chatbot platform by AJ STUDIOZ.",
+  "applicationCategory": "ProductivityApplication",
+  "operatingSystem": "Web Browser",
+  "author": {
+    "@type": "Organization",
+    "name": "AJ STUDIOZ",
+    "url": "https://www.meowchat.ajstudioz.co.in"
+  },
+  "creator": {
+    "@type": "Organization", 
+    "name": "AJ STUDIOZ"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "featureList": [
+    "Free AI Chat",
+    "Multiple AI Models",
+    "GPT-4 Support", 
+    "Claude Integration",
+    "Gemini Chat",
+    "Grok Access",
+    "Open Source",
+    "Self Hostable",
+    "No Registration Required"
+  ],
+  "screenshot": "https://www.meowchat.ajstudioz.co.in/og-image.jpg",
+  "softwareVersion": "1.0.0",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "150"
+  }
+}

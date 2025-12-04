@@ -32,7 +32,7 @@ export const MODEL_DEFAULT = "gemini-2.5-flash-lite"
 export const ADMIN_EMAILS = ["kamesh6592@gmail.com"]
 
 export const APP_NAME = "MEOW CHAT"
-export const APP_DOMAIN = "https://meow.chat"
+export const APP_DOMAIN = "https://www.meowchat.ajstudioz.co.in"
 
 export const SUGGESTIONS = [
   {
