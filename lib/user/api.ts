@@ -70,7 +70,13 @@ export async function getUserProfile(): Promise<UserProfile | null> {
         created_at: new Date().toISOString(),
         message_count: 0,
         premium: false,
-        favorite_models: []
+        favorite_models: [],
+        daily_message_count: 0,
+        daily_reset: null,
+        last_active_at: null,
+        daily_pro_message_count: 0,
+        daily_pro_reset: null,
+        system_prompt: null
       } as UserProfile
     }
 
@@ -90,7 +96,13 @@ export async function getUserProfile(): Promise<UserProfile | null> {
         created_at: new Date().toISOString(),
         message_count: 0,
         premium: false,
-        favorite_models: []
+        favorite_models: [],
+        daily_message_count: 0,
+        daily_reset: null,
+        last_active_at: null,
+        daily_pro_message_count: 0,
+        daily_pro_reset: null,
+        system_prompt: null
       } as UserProfile
     }
     
