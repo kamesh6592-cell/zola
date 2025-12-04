@@ -17,7 +17,12 @@ export const DAILY_LIMIT_PRO_MODELS = 500
 export const NON_AUTH_ALLOWED_MODELS = ["gpt-4.1-nano"]
 
 export const FREE_MODELS_IDS = [
-  "openrouter:deepseek/deepseek-r1:free",
+  "gpt-4o-mini",              // OpenAI: $0.15 input, $0.6 output (cheapest OpenAI)
+  "claude-3-5-haiku-latest",   // Anthropic: $0.25 input, $1.25 output (cheapest Claude)
+  "gemini-1.5-flash-002",     // Google: $0.075 input, $0.3 output (cheapest Gemini)
+  "open-mistral-7b",          // Mistral: FREE (open source)
+  "sonar",                    // Perplexity: $1 input, $1 output (affordable with search)
+  "openrouter:deepseek/deepseek-r1:free", // OpenRouter: FREE DeepSeek model
   "openrouter:meta-llama/llama-3.3-8b-instruct:free",
   "pixtral-large-latest",
   "mistral-large-latest",
@@ -25,6 +30,9 @@ export const FREE_MODELS_IDS = [
 ]
 
 export const MODEL_DEFAULT = "gpt-4.1-nano"
+
+// Admin Configuration
+export const ADMIN_EMAILS = ["kamesh6592@gmail.com"]
 
 export const APP_NAME = "AJ CHAT"
 export const APP_DOMAIN = "https://zola.chat"

@@ -15,8 +15,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { useUser } from "@/lib/user-store/provider"
-import { GithubLogoIcon } from "@phosphor-icons/react"
+import { ADMIN_EMAILS } from "@/lib/config"
+import { GithubLogoIcon, Shield } from "@phosphor-icons/react"
 import { useState } from "react"
+import Link from "next/link"
 import { AppInfoTrigger } from "./app-info/app-info-trigger"
 import { FeedbackTrigger } from "./feedback/feedback-trigger"
 import { SettingsTrigger } from "./settings/settings-trigger"
@@ -72,6 +74,17 @@ export function UserMenu() {
         <SettingsTrigger onOpenChange={handleSettingsOpenChange} />
         <FeedbackTrigger />
         <AppInfoTrigger />
+        {user?.email && ADMIN_EMAILS.includes(user.email) && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Link href="/admin" className="flex items-center gap-2">
+                <Shield className="size-4" />
+                <span>Admin Panel</span>
+              </Link>
+            </DropdownMenuItem>
+          </>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <a
