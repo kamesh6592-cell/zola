@@ -41,7 +41,8 @@ export function useChatOperations({
       const rateData = await checkRateLimits(uid, isAuthenticated)
 
       if (rateData.remaining === 0 && !isAuthenticated) {
-        setHasDialogAuth(true)
+        // Redirect to sign-in page instead of showing dialog
+        window.location.href = "/auth/login"
         return false
       }
 

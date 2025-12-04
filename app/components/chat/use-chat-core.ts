@@ -145,6 +145,13 @@ export function useChatCore({
   const submit = useCallback(async () => {
     setIsSubmitting(true)
 
+    // Redirect unauthenticated users to login page
+    if (!isAuthenticated) {
+      setIsSubmitting(false)
+      window.location.href = "/auth/login"
+      return
+    }
+
     const uid = await getOrCreateGuestUserId(user)
     if (!uid) {
       setIsSubmitting(false)
@@ -411,6 +418,14 @@ export function useChatCore({
   const handleSuggestion = useCallback(
     async (suggestion: string) => {
       setIsSubmitting(true)
+      
+      // Redirect unauthenticated users to login page
+      if (!isAuthenticated) {
+        setIsSubmitting(false)
+        window.location.href = "/auth/login"
+        return
+      }
+      
       const optimisticId = `optimistic-${Date.now().toString()}`
       const optimisticMessage = {
         id: optimisticId,
