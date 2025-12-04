@@ -103,14 +103,16 @@ CREATE TRIGGER on_auth_user_created
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 
 -- 4. Create all other required tables
-CREATE TABLE IF NOT EXISTS projects (
+DROP TABLE IF EXISTS projects CASCADE;
+CREATE TABLE projects (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name TEXT NOT NULL,
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE IF NOT EXISTS chats (
+DROP TABLE IF EXISTS chats CASCADE;
+CREATE TABLE chats (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -123,7 +125,8 @@ CREATE TABLE IF NOT EXISTS chats (
   pinned_at TIMESTAMP WITH TIME ZONE
 );
 
-CREATE TABLE IF NOT EXISTS messages (
+DROP TABLE IF EXISTS messages CASCADE;
+CREATE TABLE messages (
   id BIGSERIAL PRIMARY KEY,
   experimental_attachments JSONB DEFAULT '[]'::jsonb,
   chat_id UUID NOT NULL REFERENCES chats(id) ON DELETE CASCADE,
@@ -136,7 +139,8 @@ CREATE TABLE IF NOT EXISTS messages (
   model TEXT
 );
 
-CREATE TABLE IF NOT EXISTS chat_attachments (
+DROP TABLE IF EXISTS chat_attachments CASCADE;
+CREATE TABLE chat_attachments (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   chat_id UUID NOT NULL REFERENCES chats(id) ON DELETE CASCADE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -147,7 +151,8 @@ CREATE TABLE IF NOT EXISTS chat_attachments (
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS user_keys (
+DROP TABLE IF EXISTS user_keys CASCADE;
+CREATE TABLE user_keys (
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   provider TEXT NOT NULL,
   encrypted_key TEXT NOT NULL,
@@ -157,7 +162,8 @@ CREATE TABLE IF NOT EXISTS user_keys (
   PRIMARY KEY (user_id, provider)
 );
 
-CREATE TABLE IF NOT EXISTS user_preferences (
+DROP TABLE IF EXISTS user_preferences CASCADE;
+CREATE TABLE user_preferences (
   user_id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
   layout TEXT DEFAULT 'fullscreen',
   prompt_suggestions BOOLEAN DEFAULT TRUE,
@@ -169,7 +175,8 @@ CREATE TABLE IF NOT EXISTS user_preferences (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE IF NOT EXISTS feedback (
+DROP TABLE IF EXISTS feedback CASCADE;
+CREATE TABLE feedback (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   message TEXT NOT NULL,
