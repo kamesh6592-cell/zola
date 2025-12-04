@@ -1,4 +1,4 @@
-# 🚀 AJ CHAT Production Deployment Guide
+# 🚀 MEOW CHAT Production Deployment Guide
 ## Complete Setup for Seamless Database & Authentication
 
 ### 📋 Prerequisites Checklist
@@ -81,7 +81,7 @@ Authorized redirect URIs: https://your-supabase-project.supabase.co/auth/v1/call
 ### 4.1 Deploy to Production
 ```bash
 git add .
-git commit -m "feat: Production-ready AJ CHAT with automatic user creation"
+git commit -m "feat: Production-ready MEOW CHAT with automatic user creation"
 git push origin main
 ```
 
@@ -137,7 +137,7 @@ git push origin main
 
 ## 🎉 Success!
 
-Your AJ CHAT application is now **production-ready** with:
+Your MEOW CHAT application is now **production-ready** with:
 - ✅ Bulletproof authentication
 - ✅ Automatic user management  
 - ✅ Secure database policies

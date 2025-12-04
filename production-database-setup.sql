@@ -1,5 +1,5 @@
 -- ================================================
--- AJ CHAT PRODUCTION SETUP - Complete Database & Auth Configuration
+-- MEOW CHAT PRODUCTION SETUP - Complete Database & Auth Configuration
 -- Run this in your Supabase SQL Editor to set up everything automatically
 -- ================================================
 
@@ -301,7 +301,7 @@ FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 -- 10. Success message
 DO $$
 BEGIN
-  RAISE NOTICE '✅ AJ CHAT Database Setup Complete!';
+  RAISE NOTICE '✅ MEOW CHAT Database Setup Complete!';
   RAISE NOTICE 'Database is now production-ready with:';
   RAISE NOTICE '- Automatic user profile creation on signup';
   RAISE NOTICE '- Complete RLS security policies';

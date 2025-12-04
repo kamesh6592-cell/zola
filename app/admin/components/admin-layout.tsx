@@ -20,7 +20,7 @@ export function AdminLayout() {
                 <Shield className="h-6 w-6 text-blue-400" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">AJ CHAT Admin Panel</h1>
+                <h1 className="text-xl font-bold text-white">MEOW CHAT Admin Panel</h1>
                 <span className="text-sm text-gray-400">
                   Admin Access for kamesh6592@gmail.com
                 </span>

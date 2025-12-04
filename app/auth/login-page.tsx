@@ -12,7 +12,7 @@ export default function LoginPage() {
         <div className="w-full max-w-4xl">
           <div className="text-center mb-8">
             <h1 className="text-foreground text-3xl font-medium tracking-tight sm:text-4xl">
-              Welcome to AJ CHAT
+              Welcome to MEOW CHAT
             </h1>
             <p className="text-muted-foreground mt-3">
               Sign in below to increase your message limits.

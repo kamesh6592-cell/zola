@@ -1,5 +1,5 @@
 -- ================================================
--- AJ CHAT Complete Database Setup - Run this in Supabase SQL Editor
+-- MEOW CHAT Complete Database Setup - Run this in Supabase SQL Editor
 -- ================================================
 
 -- 1. Create users table (enhanced with all required fields)
@@ -236,6 +236,6 @@ FOR DELETE USING (
 );
 
 -- ================================================
--- Complete AJ CHAT Database Setup Finished! 
+-- Complete MEOW CHAT Database Setup Finished! 
 -- All tables, indexes, RLS policies, and storage are ready.
 -- ================================================

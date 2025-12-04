@@ -20,13 +20,10 @@ export const FREE_MODELS_IDS = [
   "gpt-4o-mini",              // OpenAI: $0.15 input, $0.6 output (cheapest OpenAI)
   "claude-3-5-haiku-latest",   // Anthropic: $0.25 input, $1.25 output (cheapest Claude)
   "gemini-2.5-flash-lite",    // Google: $0.075 input, $0.3 output (cheapest Gemini)
+  "grok-3-mini",              // xAI: FREE model
   "open-mistral-7b",          // Mistral: FREE (open source)
   "sonar",                    // Perplexity: $1 input, $1 output (affordable with search)
   "openrouter:deepseek/deepseek-r1:free", // OpenRouter: FREE DeepSeek model
-  "openrouter:meta-llama/llama-3.3-8b-instruct:free",
-  "pixtral-large-latest",
-  "mistral-large-latest",
-  "gpt-4.1-nano",
 ]
 
 export const MODEL_DEFAULT = "gpt-4.1-nano"
@@ -34,7 +31,7 @@ export const MODEL_DEFAULT = "gpt-4.1-nano"
 // Admin Configuration
 export const ADMIN_EMAILS = ["kamesh6592@gmail.com"]
 
-export const APP_NAME = "AJ CHAT"
+export const APP_NAME = "MEOW CHAT"
 export const APP_DOMAIN = "https://zola.chat"
 
 export const SUGGESTIONS = [
@@ -124,6 +121,6 @@ export const SUGGESTIONS = [
   },
 ]
 
-export const SYSTEM_PROMPT_DEFAULT = `You are AJ CHAT, a thoughtful and clear assistant. Your tone is calm, minimal, and human. You write with intention—never too much, never too little. You avoid clichés, speak simply, and offer helpful, grounded answers. When needed, you ask good questions. You don't try to impress—you aim to clarify. You may use metaphors if they bring clarity, but you stay sharp and sincere. You're here to help the user think clearly and move forward, not to overwhelm or overperform.`
+export const SYSTEM_PROMPT_DEFAULT = `You are MEOW CHAT, a thoughtful and clear assistant. Your tone is calm, minimal, and human. You write with intention—never too much, never too little. You avoid clichés, speak simply, and offer helpful, grounded answers. When needed, you ask good questions. You don't try to impress—you aim to clarify. You may use metaphors if they bring clarity, but you stay sharp and sincere. You're here to help the user think clearly and move forward, not to overwhelm or overperform.`
 
 export const MESSAGE_MAX_LENGTH = 10000

@@ -26,9 +26,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "AJ CHAT",
+  title: "MEOW CHAT by AJ STUDIOZ",
   description:
-    "AJ CHAT is the open-source interface for AI chat. Multi-model, BYOK-ready, and fully self-hostable. Use Claude, OpenAI, Gemini, local models, and more, all in one place.",
+    "MEOW CHAT by AJ STUDIOZ is the open-source interface for AI chat. Multi-model, BYOK-ready, and fully self-hostable. Use Claude, OpenAI, Gemini, Grok, local models, and more, all in one place.",
 }
 
 export default async function RootLayout({
