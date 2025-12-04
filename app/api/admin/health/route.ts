@@ -11,9 +11,10 @@ export async function GET() {
     return NextResponse.json(health)
   } catch (error) {
     console.error("Admin health error:", error)
+    const errorMessage = error instanceof Error ? error.message : "Unknown error"
     return NextResponse.json(
       { error: "Unauthorized or server error" },
-      { status: error.message === "Admin access required" ? 403 : 500 }
+      { status: errorMessage === "Admin access required" ? 403 : 500 }
     )
   }
 }

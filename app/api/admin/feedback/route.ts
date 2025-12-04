@@ -15,9 +15,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(result)
   } catch (error) {
     console.error("Admin feedback error:", error)
+    const errorMessage = error instanceof Error ? error.message : "Unknown error"
     return NextResponse.json(
       { error: "Unauthorized or server error" },
-      { status: error.message === "Admin access required" ? 403 : 500 }
+      { status: errorMessage === "Admin access required" ? 403 : 500 }
     )
   }
 }

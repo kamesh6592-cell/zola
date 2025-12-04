@@ -104,6 +104,7 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
+  --gray-75: #bfbfbf;
 }
 
 .dark {
@@ -159,4 +160,19 @@ code {
 /* sonner toast */
 [data-sonner-toaster] > li {
   width: 100%;
+}
+
+/* code blocks container */
+.code-block-container,
+pre,
+code[class*="language-"],
+.prose pre {
+  background-color: light-dark(#f3f3f3, #161616) !important;
+  border: 1px solid var(--gray-75);
+  border-radius: var(--radius);
+}
+
+/* additional code block styling */
+.prose pre code {
+  background-color: transparent !important;
 }
