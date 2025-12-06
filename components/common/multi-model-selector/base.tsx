@@ -316,65 +316,7 @@ export function MultiModelSelector({
     )
   }
 
-  if (isMobile) {
-    return (
-      <div>
-        <ProModelDialog
-          isOpen={isProDialogOpen}
-          setIsOpen={setIsProDialogOpen}
-          currentModel={selectedProModel || ""}
-        />
-        <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-          <DrawerTrigger asChild>{trigger}</DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>
-                Select Models ({selectedModelIds.length}/{maxModels})
-              </DrawerTitle>
-            </DrawerHeader>
-            <div className="px-4 pb-2">
-              <div className="relative">
-                <MagnifyingGlassIcon className="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
-                <Input
-                  ref={searchInputRef}
-                  placeholder="Search models..."
-                  className="pl-8"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                  onClick={(e) => e.stopPropagation()}
-                />
-              </div>
-            </div>
-            <div className="flex h-full flex-col space-y-0 overflow-y-auto px-4 pb-6">
-              {isLoadingModels ? (
-                <div className="flex h-full flex-col items-center justify-center p-6 text-center">
-                  <p className="text-muted-foreground mb-2 text-sm">
-                    Loading models...
-                  </p>
-                </div>
-              ) : filteredModels.length > 0 ? (
-                filteredModels.map((model) => renderModelItem(model))
-              ) : (
-                <div className="flex h-full flex-col items-center justify-center p-6 text-center">
-                  <p className="text-muted-foreground mb-2 text-sm">
-                    No results found.
-                  </p>
-                  <a
-                    href="https://github.com/ibelick/zola/issues/new?title=Model%20Request%3A%20"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground text-sm underline"
-                  >
-                    Request a new model
-                  </a>
-                </div>
-              )}
-            </div>
-          </DrawerContent>
-        </Drawer>
-      </div>
-    )
-  }
+  // Always use desktop-style modal for consistent experience
 
   return (
     <div>
