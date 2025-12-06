@@ -3,6 +3,7 @@ import { claudeModels } from "./data/claude"
 import { deepseekModels } from "./data/deepseek"
 import { geminiModels } from "./data/gemini"
 import { grokModels } from "./data/grok"
+import { groqModels } from "./data/groq"
 import { mistralModels } from "./data/mistral"
 import { getOllamaModels, ollamaModels } from "./data/ollama"
 import { openaiModels } from "./data/openai"
@@ -17,6 +18,7 @@ const STATIC_MODELS: ModelConfig[] = [
   ...deepseekModels,
   ...claudeModels,
   ...grokModels,
+  ...groqModels,
   ...perplexityModels,
   ...geminiModels,
   ...ollamaModels, // Static fallback Ollama models

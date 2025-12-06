@@ -9,6 +9,7 @@ import { getProviderForModel } from "./provider-map"
 import type {
   AnthropicModel,
   GeminiModel,
+  GroqModel,
   MistralModel,
   OllamaModel,
   OpenAIModel,
@@ -23,6 +24,7 @@ type GoogleGenerativeAIProviderSettings = Parameters<typeof google>[1]
 type PerplexityProviderSettings = Parameters<typeof perplexity>[0]
 type AnthropicProviderSettings = Parameters<typeof anthropic>[1]
 type XaiProviderSettings = Parameters<typeof xai>[1]
+type GroqProviderSettings = OpenAIChatSettings // Groq uses OpenAI-compatible API
 type OllamaProviderSettings = OpenAIChatSettings // Ollama uses OpenAI-compatible API
 
 type ModelSettings<T extends SupportedModel> = T extends OpenAIModel
@@ -37,9 +39,11 @@ type ModelSettings<T extends SupportedModel> = T extends OpenAIModel
           ? AnthropicProviderSettings
           : T extends XaiModel
             ? XaiProviderSettings
-            : T extends OllamaModel
-              ? OllamaProviderSettings
-              : never
+            : T extends GroqModel
+              ? GroqProviderSettings
+              : T extends OllamaModel
+                ? OllamaProviderSettings
+                : never
 
 export type OpenProvidersOptions<T extends SupportedModel> = ModelSettings<T>
 
@@ -146,6 +150,18 @@ export function openproviders<T extends SupportedModel>(
       return xaiProvider(modelId as XaiModel, settings as XaiProviderSettings)
     }
     return xai(modelId as XaiModel, settings as XaiProviderSettings)
+  }
+
+  if (provider === "groq") {
+    const groqProvider = createOpenAI({
+      apiKey: apiKey || process.env.GROQ_API_KEY,
+      baseURL: "https://api.groq.com/openai/v1",
+      compatibility: "strict",
+    })
+    return groqProvider(
+      modelId as GroqModel,
+      settings as GroqProviderSettings
+    )
   }
 
   if (provider === "ollama") {

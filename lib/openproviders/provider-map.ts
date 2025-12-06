@@ -122,6 +122,9 @@ const MODEL_PROVIDER_MAP: Record<string, Provider> = {
   // Static Ollama models
   "llama3.2:latest": "ollama",
   "qwen2.5-coder:latest": "ollama",
+
+  // Groq models
+  "qwen/qwen3-32b": "groq",
 }
 
 // Function to check if a model is likely an Ollama model based on naming patterns

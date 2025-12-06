@@ -6,6 +6,7 @@ export const env = {
   ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY!,
   XAI_API_KEY: process.env.XAI_API_KEY!,
   OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY!,
+  GROQ_API_KEY: process.env.GROQ_API_KEY!,
 }
 
 export function createEnvWithUserKeys(
@@ -20,5 +21,6 @@ export function createEnvWithUserKeys(
     ANTHROPIC_API_KEY: userKeys.anthropic || env.ANTHROPIC_API_KEY,
     XAI_API_KEY: userKeys.xai || env.XAI_API_KEY,
     OPENROUTER_API_KEY: userKeys.openrouter || env.OPENROUTER_API_KEY,
+    GROQ_API_KEY: userKeys.groq || env.GROQ_API_KEY,
   }
 }

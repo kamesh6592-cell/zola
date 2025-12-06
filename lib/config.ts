@@ -24,6 +24,7 @@ export const FREE_MODELS_IDS = [
   "open-mistral-7b",          // Mistral: FREE (open source)
   "sonar",                    // Perplexity: $1 input, $1 output (affordable with search)
   "openrouter:deepseek/deepseek-r1:free", // OpenRouter: FREE DeepSeek model
+  "qwen3-32b-groq",           // Groq: FREE Qwen3-32B model
 ]
 
 export const MODEL_DEFAULT = "gemini-2.5-flash-lite"
