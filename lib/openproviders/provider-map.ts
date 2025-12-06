@@ -124,7 +124,7 @@ const MODEL_PROVIDER_MAP: Record<string, Provider> = {
   "qwen2.5-coder:latest": "ollama",
 
   // Groq models
-  "qwen/qwen3-32b": "groq",
+  "qwen2-7b-groq": "groq",
 }
 
 // Function to check if a model is likely an Ollama model based on naming patterns

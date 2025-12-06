@@ -127,7 +127,7 @@ export type StaticOllamaModel = "llama3.2:latest" | "qwen2.5-coder:latest"
 // Dynamic Ollama model type - allows any string for auto-detected models
 export type OllamaModel = StaticOllamaModel | (string & {})
 
-export type GroqModel = "qwen/qwen3-32b"
+export type GroqModel = "qwen2-7b-groq"
 
 export type Provider =
   | "openai"
