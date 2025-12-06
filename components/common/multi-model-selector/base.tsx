@@ -1,17 +1,9 @@
 "use client"
 
 import { PopoverContentAuth } from "@/app/components/chat-input/popover-content-auth"
-import { useBreakpoint } from "@/app/hooks/use-breakpoint"
 import { useKeyShortcut } from "@/app/hooks/use-key-shortcut"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -63,10 +55,7 @@ export function MultiModelSelector({
   const selectedModels = models.filter((model) =>
     selectedModelIds.includes(model.id)
   )
-  const isMobile = useBreakpoint(768)
-
   const [hoveredModel, setHoveredModel] = useState<string | null>(null)
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isProDialogOpen, setIsProDialogOpen] = useState(false)
   const [selectedProModel, setSelectedProModel] = useState<string | null>(null)
@@ -77,11 +66,7 @@ export function MultiModelSelector({
   useKeyShortcut(
     (e) => (e.key === "m" || e.key === "M") && e.metaKey && e.shiftKey,
     () => {
-      if (isMobile) {
-        setIsDrawerOpen((prev) => !prev)
-      } else {
-        setIsDropdownOpen((prev) => !prev)
-      }
+      setIsDropdownOpen((prev) => !prev)
     }
   )
 

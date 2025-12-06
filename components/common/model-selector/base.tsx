@@ -1,16 +1,8 @@
 "use client"
 
 import { PopoverContentAuth } from "@/app/components/chat-input/popover-content-auth"
-import { useBreakpoint } from "@/app/hooks/use-breakpoint"
 import { useKeyShortcut } from "@/app/hooks/use-key-shortcut"
 import { Button } from "@/components/ui/button"
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -59,10 +51,7 @@ export function ModelSelector({
   const currentProvider = PROVIDERS.find(
     (provider) => provider.id === currentModel?.icon
   )
-  const isMobile = useBreakpoint(768)
-
   const [hoveredModel, setHoveredModel] = useState<string | null>(null)
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isProDialogOpen, setIsProDialogOpen] = useState(false)
   const [selectedProModel, setSelectedProModel] = useState<string | null>(null)
@@ -74,11 +63,7 @@ export function ModelSelector({
   useKeyShortcut(
     (e) => (e.key === "p" || e.key === "P") && e.metaKey && e.shiftKey,
     () => {
-      if (isMobile) {
-        setIsDrawerOpen((prev) => !prev)
-      } else {
-        setIsDropdownOpen((prev) => !prev)
-      }
+      setIsDropdownOpen((prev) => !prev)
     }
   )
 
@@ -101,11 +86,7 @@ export function ModelSelector({
           }
 
           setSelectedModelId(model.id)
-          if (isMobile) {
-            setIsDrawerOpen(false)
-          } else {
-            setIsDropdownOpen(false)
-          }
+          setIsDropdownOpen(false)
         }}
       >
         <div className="flex items-center gap-3">
@@ -185,63 +166,7 @@ export function ModelSelector({
     )
   }
 
-  if (isMobile) {
-    return (
-      <>
-        <ProModelDialog
-          isOpen={isProDialogOpen}
-          setIsOpen={setIsProDialogOpen}
-          currentModel={selectedProModel || ""}
-        />
-        <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-          <DrawerTrigger asChild>{trigger}</DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>Select Model</DrawerTitle>
-            </DrawerHeader>
-            <div className="px-4 pb-2">
-              <div className="relative">
-                <MagnifyingGlassIcon className="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
-                <Input
-                  ref={searchInputRef}
-                  placeholder="Search models..."
-                  className="pl-8"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                  onClick={(e) => e.stopPropagation()}
-                />
-              </div>
-            </div>
-            <div className="flex h-full flex-col space-y-0 overflow-y-auto px-4 pb-6">
-              {isLoadingModels ? (
-                <div className="flex h-full flex-col items-center justify-center p-6 text-center">
-                  <p className="text-muted-foreground mb-2 text-sm">
-                    Loading models...
-                  </p>
-                </div>
-              ) : filteredModels.length > 0 ? (
-                filteredModels.map((model) => renderModelItem(model))
-              ) : (
-                <div className="flex h-full flex-col items-center justify-center p-6 text-center">
-                  <p className="text-muted-foreground mb-2 text-sm">
-                    No results found.
-                  </p>
-                  <a
-                    href="https://github.com/ibelick/zola/issues/new?title=Model%20Request%3A%20"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground text-sm underline"
-                  >
-                    Request a new model
-                  </a>
-                </div>
-              )}
-            </div>
-          </DrawerContent>
-        </Drawer>
-      </>
-    )
-  }
+  // Always use desktop-style modal for consistent experience
 
   return (
     <div>

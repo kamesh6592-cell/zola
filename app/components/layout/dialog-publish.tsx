@@ -1,6 +1,5 @@
 "use client"
 
-import { useBreakpoint } from "@/app/hooks/use-breakpoint"
 import XIcon from "@/components/icons/x"
 import { Button } from "@/components/ui/button"
 import {
@@ -10,13 +9,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/components/ui/drawer"
 import { Input } from "@/components/ui/input"
 import {
   Tooltip,
@@ -36,7 +28,6 @@ export function DialogPublish() {
   const [openDialog, setOpenDialog] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const { chatId } = useChatSession()
-  const isMobile = useBreakpoint(768)
   const [copied, setCopied] = useState(false)
 
   if (!isSupabaseEnabled) {
@@ -155,27 +146,6 @@ export function DialogPublish() {
       </div>
     </>
   )
-
-  if (isMobile) {
-    return (
-      <>
-        {trigger}
-        <Drawer open={openDialog} onOpenChange={setOpenDialog}>
-          <DrawerContent className="bg-background border-border">
-            <DrawerHeader>
-              <DrawerTitle>Your conversation is now public!</DrawerTitle>
-              <DrawerDescription>
-                Anyone with the link can now view this conversation and may
-                appear in community feeds, featured pages, or search results in
-                the future.
-              </DrawerDescription>
-            </DrawerHeader>
-            <div className="flex flex-col gap-4 px-4 pb-6">{content}</div>
-          </DrawerContent>
-        </Drawer>
-      </>
-    )
-  }
 
   return (
     <>

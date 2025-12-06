@@ -1,6 +1,5 @@
 "use client"
 
-import { useBreakpoint } from "@/app/hooks/use-breakpoint"
 import {
   Dialog,
   DialogContent,
@@ -9,14 +8,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { APP_NAME } from "@/lib/config"
 import { Info } from "@phosphor-icons/react"
@@ -28,7 +19,6 @@ type AppInfoTriggerProps = {
 }
 
 export function AppInfoTrigger({ trigger }: AppInfoTriggerProps) {
-  const isMobile = useBreakpoint(768)
 
   const defaultTrigger = (
     <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
@@ -37,31 +27,7 @@ export function AppInfoTrigger({ trigger }: AppInfoTriggerProps) {
     </DropdownMenuItem>
   )
 
-  if (isMobile) {
-    return (
-      <Drawer>
-        <DrawerTrigger asChild>{trigger || defaultTrigger}</DrawerTrigger>
-        <DrawerContent className="bg-background border-border">
-          <DrawerHeader>
-            <Image
-              src="/banner_ocean.jpg"
-              alt={`calm paint generate by ${APP_NAME}`}
-              width={400}
-              height={128}
-              className="h-32 w-full object-cover"
-            />
-            <DrawerTitle className="hidden">{APP_NAME}</DrawerTitle>
-            <DrawerDescription className="hidden">
-              Your minimalist AI chat companion
-            </DrawerDescription>
-          </DrawerHeader>
-          <div className="px-4 pb-6">
-            <AppInfoContent />
-          </div>
-        </DrawerContent>
-      </Drawer>
-    )
-  }
+  // Always use desktop dialog for consistent experience
 
   return (
     <Dialog>

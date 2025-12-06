@@ -1,6 +1,6 @@
 "use client"
 
-import { useBreakpoint } from "@/app/hooks/use-breakpoint"
+
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -9,12 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/components/ui/drawer"
+
 import { APP_NAME } from "@/lib/config"
 import { createClient } from "@/lib/supabase/client"
 import { useUser } from "@/lib/user-store/provider"
@@ -33,7 +28,6 @@ export function ProModelDialog({
   currentModel,
 }: ProModelDialogProps) {
   const { user } = useUser()
-  const isMobile = useBreakpoint(768)
   const mutation = useMutation({
     mutationFn: async () => {
       if (!user?.id) throw new Error("Missing user")
@@ -106,19 +100,6 @@ export function ProModelDialog({
       </div>
     </div>
   )
-
-  if (isMobile) {
-    return (
-      <Drawer open={isOpen} onOpenChange={setIsOpen}>
-        <DrawerContent className="px-0">
-          <DrawerHeader className="sr-only">
-            <DrawerTitle>Pro Model Access Required</DrawerTitle>
-          </DrawerHeader>
-          {renderContent()}
-        </DrawerContent>
-      </Drawer>
-    )
-  }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
