@@ -3,14 +3,14 @@ import { ModelConfig } from "../types"
 
 const groqModels: ModelConfig[] = [
   {
-    id: "qwen2-7b-groq",
-    name: "Qwen2-7B (Groq)",
+    id: "llama-3.1-8b-groq",
+    name: "Llama 3.1 8B (Groq)",
     provider: "Groq",
     providerId: "groq",
-    modelFamily: "Qwen",
+    modelFamily: "Llama",
     baseProviderId: "groq",
     description:
-      "Qwen2-7B model hosted on Groq for ultra-fast inference. Free to use with excellent reasoning capabilities.",
+      "Llama 3.1 8B model hosted on Groq for ultra-fast inference. Free to use with excellent reasoning capabilities.",
     tags: ["free", "fast", "qwen", "7b", "groq-hosted", "reasoning"],
     contextWindow: 32768,
     inputCost: 0.0,
@@ -29,7 +29,7 @@ const groqModels: ModelConfig[] = [
     releasedAt: "2024-06-01",
     icon: "groq",
     apiSdk: (apiKey?: string) =>
-      openproviders("qwen2-7b-groq" as string, undefined, apiKey),
+      openproviders("llama-3.1-8b-instant" as string, undefined, apiKey),
   },
 ]
 

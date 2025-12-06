@@ -113,7 +113,7 @@ export type XaiModel =
   | "grok-beta"
 
 export type OpenRouterModel =
-  | "openrouter:deepseek/deepseek-chat"
+  | "openrouter:deepseek/deepseek-r1-distill-llama-70b"
   | "openrouter:anthropic/claude-3.7-sonnet:thinking"
   | "openrouter:google/gemini-2.5-pro-preview"
   | "openrouter:openai/gpt-4.1"
@@ -127,7 +127,7 @@ export type StaticOllamaModel = "llama3.2:latest" | "qwen2.5-coder:latest"
 // Dynamic Ollama model type - allows any string for auto-detected models
 export type OllamaModel = StaticOllamaModel | (string & {})
 
-export type GroqModel = "qwen2-7b-groq"
+export type GroqModel = "llama-3.1-8b-groq" | "llama-3.1-8b-instant"
 
 export type Provider =
   | "openai"

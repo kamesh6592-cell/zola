@@ -3,16 +3,16 @@ import { ModelConfig } from "../types"
 
 export const openrouterModels: ModelConfig[] = [
   {
-    id: "openrouter:deepseek/deepseek-chat",
-    name: "DeepSeek Chat",
+    id: "openrouter:deepseek/deepseek-r1-distill-llama-70b",
+    name: "DeepSeek R1 Distill",
     provider: "OpenRouter",
     providerId: "openrouter",
     modelFamily: "OpenRouter",
     baseProviderId: "deepseek",
     description:
-      "DeepSeek Chat model optimized for conversational AI and general tasks.",
-    tags: ["chat", "conversational", "performance", "free"],
-    contextWindow: 32768,
+      "DeepSeek R1 Distilled model - free and optimized for conversational AI and general tasks.",
+    tags: ["chat", "conversational", "performance", "free", "distilled"],
+    contextWindow: 131072,
     inputCost: 0,
     outputCost: 0,
     priceUnit: "per 1M tokens",
@@ -25,14 +25,14 @@ export const openrouterModels: ModelConfig[] = [
     speed: "Fast",
     intelligence: "High",
     website: "https://openrouter.ai/",
-    apiDocs: "https://openrouter.ai/deepseek/deepseek-chat",
+    apiDocs: "https://openrouter.ai/deepseek/deepseek-r1-distill-llama-70b",
     modelPage: "https://deepseek.com",
     releasedAt: "2024-04-01",
     icon: "deepseek",
     apiSdk: (apiKey?: string) =>
       createOpenRouter({
         apiKey: apiKey || process.env.OPENROUTER_API_KEY,
-      }).chat("deepseek/deepseek-chat"),
+      }).chat("deepseek/deepseek-r1-distill-llama-70b"),
   },
   {
     id: "openrouter:anthropic/claude-sonnet-4",

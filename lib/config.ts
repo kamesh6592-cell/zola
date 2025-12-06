@@ -23,8 +23,8 @@ export const FREE_MODELS_IDS = [
   "grok-3-mini",              // xAI: FREE model
   "open-mistral-7b",          // Mistral: FREE (open source)
   "sonar",                    // Perplexity: $1 input, $1 output (affordable with search)
-  "openrouter:deepseek/deepseek-chat", // OpenRouter: FREE DeepSeek Chat model
-  "qwen2-7b-groq",            // Groq: FREE Qwen2-7B model
+  "openrouter:deepseek/deepseek-r1-distill-llama-70b", // OpenRouter: FREE DeepSeek model
+  "llama-3.1-8b-groq",        // Groq: FREE Llama 3.1 8B model
 ]
 
 export const MODEL_DEFAULT = "gemini-2.5-flash-lite"
