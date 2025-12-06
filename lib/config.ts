@@ -23,7 +23,7 @@ export const FREE_MODELS_IDS = [
   "grok-3-mini",              // xAI: FREE model
   "open-mistral-7b",          // Mistral: FREE (open source)
   "sonar",                    // Perplexity: $1 input, $1 output (affordable with search)
-  "openrouter:deepseek/deepseek-r1:free", // OpenRouter: FREE DeepSeek model
+  "openrouter:deepseek/deepseek-chat", // OpenRouter: FREE DeepSeek Chat model
   "qwen3-32b-groq",           // Groq: FREE Qwen3-32B model
 ]
 

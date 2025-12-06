@@ -7,7 +7,7 @@ SET favorite_models = ARRAY[
   'grok-3-mini',
   'open-mistral-7b',
   'sonar',
-  'openrouter:deepseek/deepseek-r1:free',
+  'openrouter:deepseek/deepseek-chat',
   'qwen3-32b-groq'
 ];
 
@@ -19,7 +19,7 @@ ALTER TABLE users ALTER COLUMN favorite_models SET DEFAULT ARRAY[
   'grok-3-mini',
   'open-mistral-7b',
   'sonar',
-  'openrouter:deepseek/deepseek-r1:free',
+  'openrouter:deepseek/deepseek-chat',
   'qwen3-32b-groq'
 ];
 
@@ -35,7 +35,7 @@ BEGIN
     NEW.id, NEW.email,
     COALESCE(NEW.raw_user_meta_data->>'name', split_part(NEW.email, '@', 1)),
     NEW.raw_user_meta_data->>'avatar_url', NEW.created_at, 0, FALSE, FALSE,
-    ARRAY['gpt-4o-mini', 'claude-3-5-haiku-latest', 'gemini-2.5-flash-lite', 'grok-3-mini', 'open-mistral-7b', 'sonar', 'openrouter:deepseek/deepseek-r1:free', 'qwen3-32b-groq'],
+    ARRAY['gpt-4o-mini', 'claude-3-5-haiku-latest', 'gemini-2.5-flash-lite', 'grok-3-mini', 'open-mistral-7b', 'sonar', 'openrouter:deepseek/deepseek-chat', 'qwen3-32b-groq'],
     0, NEW.created_at, NEW.created_at, 0, NEW.created_at, NULL
   ) ON CONFLICT (id) DO NOTHING;
   RETURN NEW;
@@ -56,6 +56,6 @@ BEGIN
   RAISE NOTICE '• Grok 3 Mini (xAI) - FREE model';
   RAISE NOTICE '• Mistral 7B (FREE open-source)';
   RAISE NOTICE '• Perplexity Sonar - $1/$1 per 1M tokens';
-  RAISE NOTICE '• DeepSeek R1 (FREE via OpenRouter)';
+  RAISE NOTICE '• DeepSeek Chat (FREE via OpenRouter)';
   RAISE NOTICE '• Qwen3-32B (FREE via Groq) - $0.00/$0.00 per 1M tokens';
 END $$;
