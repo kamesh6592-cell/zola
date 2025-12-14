@@ -22,13 +22,16 @@ import { Pin } from "lucide-react"
 import { useParams, useRouter } from "next/navigation"
 import { useMemo } from "react"
 import { HistoryTrigger } from "../../history/history-trigger"
+import { ProfileMenu } from "../profile-menu"
 import { SidebarList } from "./sidebar-list"
 import { SidebarProject } from "./sidebar-project"
+import { useUser } from "@/lib/user-store/provider"
 
 export function AppSidebar() {
   const isMobile = useBreakpoint(768)
   const { setOpenMobile } = useSidebar()
   const { chats, pinnedChats, isLoading } = useChats()
+  const { user } = useUser()
   const params = useParams<{ chatId: string }>()
   const currentChatId = params.chatId
 
@@ -130,7 +133,8 @@ export function AppSidebar() {
           )}
         </ScrollArea>
       </SidebarContent>
-      <SidebarFooter className="border-border/40 mb-2 border-t p-3">
+      <SidebarFooter className="border-border/40 mb-2 border-t p-3 space-y-3">
+        {user && <ProfileMenu />}
         <a
           href="https://github.com/ibelick/zola"
           className="hover:bg-muted flex items-center gap-2 rounded-md p-2"
