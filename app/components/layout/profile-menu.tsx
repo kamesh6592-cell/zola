@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -139,6 +139,9 @@ export function ProfileMenu() {
         <DialogContent className="flex h-[80%] min-h-[480px] w-full flex-col gap-0 p-0 sm:max-w-[768px]">
           <DialogHeader className="border-border border-b px-6 py-5">
             <DialogTitle>Settings</DialogTitle>
+            <DialogDescription>
+              Customize your chat experience and account preferences.
+            </DialogDescription>
           </DialogHeader>
           <SettingsContent />
         </DialogContent>

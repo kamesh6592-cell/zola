@@ -152,7 +152,7 @@ export function MessageAssistant({
         {Boolean(isLastStreaming || contentNullOrEmpty) ? null : (
           <MessageActions
             className={cn(
-              "-ml-2 flex gap-0 opacity-0 transition-opacity group-hover:opacity-100"
+              "-ml-2 flex gap-0 opacity-100 transition-opacity"
             )}
           >
             <MessageAction
