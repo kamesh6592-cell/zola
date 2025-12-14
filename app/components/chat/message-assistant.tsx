@@ -7,8 +7,9 @@ import {
 import { useUserPreferences } from "@/lib/user-preference-store/provider"
 import { cn } from "@/lib/utils"
 import type { Message as MessageAISDK } from "@ai-sdk/react"
-import { ArrowClockwise, Check, Copy } from "@phosphor-icons/react"
-import { useCallback, useRef } from "react"
+import { ArrowClockwise, Check } from "@phosphor-icons/react"
+import { Copy, ThumbUp, ThumbUpFilled, ThumbDown, ThumbDownFilled, Share, Regenerate } from "@openai/apps-sdk-ui/components/Icon"
+import { useCallback, useRef, useState } from "react"
 import { getSources } from "./get-sources"
 import { QuoteButton } from "./quote-button"
 import { Reasoning } from "./reasoning"
@@ -45,6 +46,9 @@ export function MessageAssistant({
   onQuote,
 }: MessageAssistantProps) {
   const { preferences } = useUserPreferences()
+  const [thumbsUp, setThumbsUp] = useState(false)
+  const [thumbsDown, setThumbsDown] = useState(false)
+  
   const sources = getSources(parts)
   const toolInvocationParts = parts?.filter(
     (part) => part.type === "tool-invocation"
@@ -82,6 +86,21 @@ export function MessageAssistant({
       clearSelection()
     }
   }, [selectionInfo, onQuote, clearSelection])
+
+  const handleThumbsUp = () => {
+    setThumbsUp(!thumbsUp)
+    if (thumbsDown) setThumbsDown(false)
+  }
+
+  const handleThumbsDown = () => {
+    setThumbsDown(!thumbsDown)
+    if (thumbsUp) setThumbsUp(false)
+  }
+
+  const handleShare = () => {
+    // Share functionality - you can implement your share logic here
+    navigator.clipboard.writeText(window.location.href)
+  }
 
   return (
     <Message
@@ -137,7 +156,7 @@ export function MessageAssistant({
             )}
           >
             <MessageAction
-              tooltip={copied ? "Copied!" : "Copy text"}
+              tooltip={copied ? "Copied!" : "Copy"}
               side="bottom"
             >
               <button
@@ -153,6 +172,57 @@ export function MessageAssistant({
                 )}
               </button>
             </MessageAction>
+            
+            <MessageAction
+              tooltip="Good response"
+              side="bottom"
+            >
+              <button
+                className="hover:bg-accent/60 text-muted-foreground hover:text-foreground flex size-7.5 items-center justify-center rounded-full bg-transparent transition"
+                aria-label="Good response"
+                onClick={handleThumbsUp}
+                type="button"
+              >
+                {thumbsUp ? (
+                  <ThumbUpFilled className="size-4" />
+                ) : (
+                  <ThumbUp className="size-4" />
+                )}
+              </button>
+            </MessageAction>
+            
+            <MessageAction
+              tooltip="Bad response"
+              side="bottom"
+            >
+              <button
+                className="hover:bg-accent/60 text-muted-foreground hover:text-foreground flex size-7.5 items-center justify-center rounded-full bg-transparent transition"
+                aria-label="Bad response"
+                onClick={handleThumbsDown}
+                type="button"
+              >
+                {thumbsDown ? (
+                  <ThumbDownFilled className="size-4" />
+                ) : (
+                  <ThumbDown className="size-4" />
+                )}
+              </button>
+            </MessageAction>
+            
+            <MessageAction
+              tooltip="Share"
+              side="bottom"
+            >
+              <button
+                className="hover:bg-accent/60 text-muted-foreground hover:text-foreground flex size-7.5 items-center justify-center rounded-full bg-transparent transition"
+                aria-label="Share"
+                onClick={handleShare}
+                type="button"
+              >
+                <Share className="size-4" />
+              </button>
+            </MessageAction>
+            
             {isLast ? (
               <MessageAction
                 tooltip="Regenerate"
@@ -165,7 +235,7 @@ export function MessageAssistant({
                   onClick={onReload}
                   type="button"
                 >
-                  <ArrowClockwise className="size-4" />
+                  <Regenerate className="size-4" />
                 </button>
               </MessageAction>
             ) : null}
