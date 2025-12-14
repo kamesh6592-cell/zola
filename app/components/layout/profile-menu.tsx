@@ -1,9 +1,15 @@
 "use client"
 
-import { Menu } from "@openai/apps-sdk-ui/components/Menu"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { useUser } from "@/lib/user-store/provider"
 import { useChats } from "@/lib/chat-store/chats/provider"
 import { useMessages } from "@/lib/chat-store/messages/provider"
@@ -47,9 +53,9 @@ export function ProfileMenu() {
 
   return (
     <>
-      <Menu>
+      <DropdownMenu>
         {/* Trigger (bottom-left like ChatGPT) */}
-        <Menu.Trigger>
+        <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
             className="flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-muted transition-colors text-left justify-start h-auto min-h-12"
@@ -68,13 +74,13 @@ export function ProfileMenu() {
               <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
             </div>
           </Button>
-        </Menu.Trigger>
+        </DropdownMenuTrigger>
 
         {/* Menu Content */}
-        <Menu.Content width={240} minWidth={240}>
+        <DropdownMenuContent align="start" className="w-60">
           {/* User info */}
-          <Menu.Item disabled>
-            <div className="flex gap-3 items-center">
+          <DropdownMenuItem className="flex flex-col items-start gap-0 cursor-default focus:bg-transparent">
+            <div className="flex gap-3 items-center w-full">
               <Avatar className="h-9 w-9 shrink-0">
                 <AvatarImage src={user?.profile_image ?? undefined} />
                 <AvatarFallback className="font-semibold">
@@ -88,45 +94,45 @@ export function ProfileMenu() {
                 </p>
               </div>
             </div>
-          </Menu.Item>
+          </DropdownMenuItem>
 
-          <Menu.Separator />
+          <DropdownMenuSeparator />
 
           {/* Menu links */}
-          <Menu.Item onSelect={() => setSettingsOpen(true)}>
+          <DropdownMenuItem onSelect={() => setSettingsOpen(true)}>
             Settings
-          </Menu.Item>
+          </DropdownMenuItem>
 
-          <Menu.Item onSelect={handleFeedback}>
+          <DropdownMenuItem onSelect={handleFeedback}>
             Feedback
-          </Menu.Item>
+          </DropdownMenuItem>
 
-          <Menu.Item onSelect={handleHelp}>
+          <DropdownMenuItem onSelect={handleHelp}>
             Help
-          </Menu.Item>
+          </DropdownMenuItem>
 
           {user?.email && ADMIN_EMAILS.includes(user.email) && (
             <>
-              <Menu.Separator />
-              <Menu.Item onSelect={() => window.open('/admin', '_blank')}>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onSelect={() => window.open('/admin', '_blank')}>
                 <div className="flex items-center gap-2">
                   <Shield className="size-4" />
                   Admin Panel
                 </div>
-              </Menu.Item>
+              </DropdownMenuItem>
             </>
           )}
 
-          <Menu.Separator />
+          <DropdownMenuSeparator />
 
-          <Menu.Item
-            className="text-red-500 hover:text-red-600"
+          <DropdownMenuItem
+            className="text-red-500 focus:text-red-600"
             onSelect={handleLogout}
           >
             Log out
-          </Menu.Item>
-        </Menu.Content>
-      </Menu>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       {/* Settings Dialog */}
       <Dialog open={isSettingsOpen} onOpenChange={setSettingsOpen}>
