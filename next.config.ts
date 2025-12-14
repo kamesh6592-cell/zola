@@ -8,7 +8,6 @@ const nextConfig: NextConfig = withBundleAnalyzer({
   output: "standalone",
   experimental: {
     optimizePackageImports: ["@phosphor-icons/react"],
-    nodeMiddleware: true,
   },
   serverExternalPackages: ["shiki", "vscode-oniguruma"],
   images: {
@@ -21,10 +20,8 @@ const nextConfig: NextConfig = withBundleAnalyzer({
       },
     ],
   },
-  eslint: {
-    // @todo: remove before going live
-    ignoreDuringBuilds: true,
-  },
+  // Add empty turbopack config to silence the warning
+  turbopack: {},
 })
 
 export default nextConfig
