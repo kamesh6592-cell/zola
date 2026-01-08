@@ -27,45 +27,45 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "MEOW CHAT by AJ STUDIOZ - Free AI Chat Interface",
-    template: "%s | MEOW CHAT by AJ STUDIOZ"
+    default: "AJ KAMESH AI - Personal Multi-Model AI Assistant",
+    template: "%s | AJ KAMESH AI"
   },
   description:
-    "MEOW CHAT by AJ STUDIOZ - Free AI chat interface with multiple models. Chat with GPT-4, Claude, Gemini, Grok and more. Open-source, self-hostable AI chatbot platform.",
+    "AJ KAMESH's Personal AI Chat Interface - Advanced multi-model AI assistant with GPT-4, Claude, Gemini, Grok, and more. Powered by AJ STUDIOZ.",
   keywords: [
-    "meow chat", "AI chat", "free AI chat", "ChatGPT alternative", "Claude chat", 
-    "Gemini chat", "Grok chat", "AI chatbot", "open source AI", "AJ STUDIOZ",
-    "multi-model AI", "free chatbot", "AI assistant", "artificial intelligence"
+    "AJ KAMESH", "AI chat", "personal AI", "ChatGPT", "Claude chat", 
+    "Gemini chat", "Grok chat", "AI assistant", "multi-model AI", "AJ STUDIOZ",
+    "AI chatbot", "artificial intelligence", "GPT-4", "local AI", "Ollama"
   ],
-  authors: [{ name: "AJ STUDIOZ" }],
-  creator: "AJ STUDIOZ",
+  authors: [{ name: "AJ KAMESH" }, { name: "AJ STUDIOZ" }],
+  creator: "AJ KAMESH",
   publisher: "AJ STUDIOZ",
-  metadataBase: new URL("https://www.meowchat.ajstudioz.co.in"),
+  metadataBase: new URL("https://ai.ajkamesh.com"),
   alternates: {
-    canonical: "https://www.meowchat.ajstudioz.co.in"
+    canonical: "https://ai.ajkamesh.com"
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://www.meowchat.ajstudioz.co.in",
-    title: "MEOW CHAT by AJ STUDIOZ - Free AI Chat Interface",
-    description: "Free AI chat with multiple models - GPT-4, Claude, Gemini, Grok. Open-source chatbot platform by AJ STUDIOZ.",
-    siteName: "MEOW CHAT by AJ STUDIOZ",
+    url: "https://ai.ajkamesh.com",
+    title: "AJ KAMESH AI - Personal Multi-Model AI Assistant",
+    description: "AJ KAMESH's Personal AI Chat Interface with GPT-4, Claude, Gemini, Grok, and more. Advanced multi-model AI powered by AJ STUDIOZ.",
+    siteName: "AJ KAMESH AI",
     images: [
       {
-        url: "https://www.meowchat.ajstudioz.co.in/og-image",
+        url: "https://ai.ajkamesh.com/og-image",
         width: 1200,
         height: 630,
-        alt: "MEOW CHAT by AJ STUDIOZ - Free AI Chat Interface",
+        alt: "AJ KAMESH AI - Personal Multi-Model AI Assistant",
         type: "image/png"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "MEOW CHAT by AJ STUDIOZ - Free AI Chat Interface",
-    description: "Free AI chat with multiple models - GPT-4, Claude, Gemini, Grok. Open-source chatbot platform.",
-    images: ["https://www.meowchat.ajstudioz.co.in/og-image"]
+    title: "AJ KAMESH AI - Personal Multi-Model AI Assistant",
+    description: "Personal AI Chat Interface with GPT-4, Claude, Gemini, Grok, and more. Powered by AJ STUDIOZ.",
+    images: ["https://ai.ajkamesh.com/og-image"]
   },
   robots: {
     index: true,
