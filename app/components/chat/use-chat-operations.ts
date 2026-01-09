@@ -1,7 +1,7 @@
 import { toast } from "@/components/ui/toast"
 import { checkRateLimits } from "@/lib/api"
 import type { Chats } from "@/lib/chat-store/types"
-import { REMAINING_QUERY_ALERT_THRESHOLD } from "@/lib/config"
+import { NON_AUTH_DAILY_MESSAGE_LIMIT, REMAINING_QUERY_ALERT_THRESHOLD } from "@/lib/config"
 import { Message } from "@ai-sdk/react"
 import { useCallback } from "react"
 
@@ -38,40 +38,68 @@ export function useChatOperations({
   // Chat utilities
   const checkLimitsAndNotify = async (uid: string): Promise<boolean> => {
     try {
+      // For guest users, track locally
+      if (!isAuthenticated) {
+        const guestMessageKey = "guest_message_count"
+        const guestResetKey = "guest_reset_date"
+        const today = new Date().toDateString()
+        
+        // Check if we need to reset the count
+        const lastReset = localStorage.getItem(guestResetKey)
+        if (lastReset !== today) {
+          localStorage.setItem(guestMessageKey, "0")
+          localStorage.setItem(guestResetKey, today)
+        }
+        
+        const currentCount = parseInt(localStorage.getItem(guestMessageKey) || "0")
+        const dailyLimit = NON_AUTH_DAILY_MESSAGE_LIMIT
+        
+        if (currentCount >= dailyLimit) {
+          toast({
+            title: "Daily limit reached!",
+            description: "Login to continue chatting with unlimited messages.",
+            status: "warning",
+            button: {
+              label: "Login",
+              onClick: () => {
+                window.location.href = "/login"
+              },
+            },
+          })
+          return false
+        }
+        
+        // Show login reminder every 5 messages for guests
+        if (currentCount > 0 && currentCount % 5 === 0) {
+          toast({
+            title: "💡 Tip: Login for unlimited access",
+            description: `You've sent ${currentCount} messages. Login to get unlimited messages and save your chats!`,
+            status: "info",
+            button: {
+              label: "Login Now",
+              onClick: () => {
+                window.location.href = "/login"
+              },
+            },
+          })
+        }
+        
+        return true
+      }
+
+      // For authenticated users, check server
       const rateData = await checkRateLimits(uid, isAuthenticated)
 
-      if (rateData.remaining === 0 && !isAuthenticated) {
-        // Show login reminder toast instead of forcing redirect
+      if (rateData.remaining === 0) {
         toast({
           title: "Daily limit reached!",
-          description: "Login to continue chatting with unlimited messages.",
+          description: "You've reached your daily message limit. Try again tomorrow.",
           status: "warning",
-          button: {
-            label: "Login",
-            onClick: () => {
-              window.location.href = "/login"
-            },
-          },
         })
         return false
       }
 
-      // Show login reminder every 5 messages for guests
-      if (!isAuthenticated && rateData.count > 0 && rateData.count % 5 === 0) {
-        toast({
-          title: "💡 Tip: Login for unlimited access",
-          description: `You've sent ${rateData.count} messages. Login to get unlimited messages and save your chats!`,
-          status: "info",
-          button: {
-            label: "Login Now",
-            onClick: () => {
-              window.location.href = "/login"
-            },
-          },
-        })
-      }
-
-      if (rateData.remaining === REMAINING_QUERY_ALERT_THRESHOLD && isAuthenticated) {
+      if (rateData.remaining === REMAINING_QUERY_ALERT_THRESHOLD) {
         toast({
           title: `Only ${rateData.remaining} quer${
             rateData.remaining === 1 ? "y" : "ies"
@@ -160,10 +188,19 @@ export function useChatOperations({
     [messages, setMessages]
   )
 
+  const incrementGuestMessageCount = useCallback(() => {
+    if (!isAuthenticated) {
+      const guestMessageKey = "guest_message_count"
+      const currentCount = parseInt(localStorage.getItem(guestMessageKey) || "0")
+      localStorage.setItem(guestMessageKey, (currentCount + 1).toString())
+    }
+  }, [isAuthenticated])
+
   return {
     // Utils
     checkLimitsAndNotify,
     ensureChatExists,
+    incrementGuestMessageCount,
 
     // Handlers
     handleDelete,

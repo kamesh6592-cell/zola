@@ -33,6 +33,7 @@ type UseChatCoreProps = {
   selectedModel: string
   clearDraft: () => void
   bumpChat: (chatId: string) => void
+  incrementGuestMessageCount: () => void
 }
 
 export function useChatCore({
@@ -51,6 +52,7 @@ export function useChatCore({
   selectedModel,
   clearDraft,
   bumpChat,
+  incrementGuestMessageCount,
 }: UseChatCoreProps) {
   // State management
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -107,6 +109,7 @@ export function useChatCore({
     initialInput: draftValue,
     onFinish: async (m) => {
       cacheAndAddMessage(m)
+      incrementGuestMessageCount() // Increment count for guest users
       try {
         const effectiveChatId =
           chatId ||

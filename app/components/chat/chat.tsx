@@ -89,7 +89,7 @@ export function Chat() {
   )
 
   // Chat operations (utils + handlers) - created first
-  const { checkLimitsAndNotify, ensureChatExists, handleDelete } =
+  const { checkLimitsAndNotify, ensureChatExists, handleDelete, incrementGuestMessageCount } =
     useChatOperations({
       isAuthenticated,
       chatId,
@@ -133,6 +133,7 @@ export function Chat() {
     selectedModel,
     clearDraft,
     bumpChat,
+    incrementGuestMessageCount,
   })
 
   // Memoize the conversation props to prevent unnecessary rerenders
