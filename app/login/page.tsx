@@ -10,6 +10,15 @@ export default function LoginPage() {
   const supabase = createClient()
 
   const handleGoogleSignIn = async () => {
+    if (!supabase) {
+      toast({
+        title: "Configuration Error",
+        description: "Supabase is not configured. Please check your environment variables.",
+        status: "error",
+      })
+      return
+    }
+
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -39,6 +48,15 @@ export default function LoginPage() {
     const formData = new FormData(event.currentTarget)
     const email = formData.get('email') as string
     const password = formData.get('password') as string
+
+    if (!supabase) {
+      toast({
+        title: "Configuration Error",
+        description: "Supabase is not configured. Please check your environment variables.",
+        status: "error",
+      })
+      return
+    }
 
     try {
       const { error } = await supabase.auth.signInWithPassword({
