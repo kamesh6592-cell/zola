@@ -5,11 +5,11 @@ import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { toast } from "@/components/ui/toast"
 
-export default function LoginPage() {
+export default function SignUpPage() {
   const router = useRouter()
   const supabase = createClient()
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleSignUp = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -28,27 +28,30 @@ export default function LoginPage() {
     } catch (err) {
       toast({
         title: "Error",
-        description: "Failed to sign in with Google",
+        description: "Failed to sign up with Google",
         status: "error",
       })
     }
   }
 
-  const handleEmailSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleEmailSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     const email = formData.get('email') as string
     const password = formData.get('password') as string
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
       })
 
       if (error) {
         toast({
-          title: "Sign In Failed",
+          title: "Sign Up Failed",
           description: error.message,
           status: "error",
         })
@@ -56,13 +59,12 @@ export default function LoginPage() {
       }
 
       toast({
-        title: "Welcome back!",
-        description: "Successfully signed in to MEOW CHAT",
+        title: "Account Created!",
+        description: "Please check your email to verify your account",
         status: "success",
       })
       
-      router.push('/')
-      router.refresh()
+      router.push('/login')
     } catch (err) {
       toast({
         title: "Error",
@@ -72,35 +74,30 @@ export default function LoginPage() {
     }
   }
 
-  const handleResetPassword = () => {
-    router.push('/reset-password')
-  }
-
-  const handleCreateAccount = () => {
-    router.push('/signup')
+  const handleBackToLogin = () => {
+    router.push('/login')
   }
 
   return (
     <SignInPage
       title={
         <>
-          Welcome to <span className="text-primary">MEOW CHAT</span>
+          Join <span className="text-primary">MEOW CHAT</span>
         </>
       }
-      description="Your personal AI assistant - Chat with multiple AI models powered by AJ STUDIOZ"
+      description="Create your account and start chatting with multiple AI models"
       heroImageSrc="/cover_zola.jpg"
       testimonials={[
         {
           avatarSrc: "/AJ.svg",
           name: "AJ KAMESH",
           handle: "@ajkamesh",
-          text: "The best multi-model AI chat interface I've built for personal use!",
+          text: "Access GPT-4, Claude, Gemini, Grok and more AI models in one place!",
         },
       ]}
-      onSignIn={handleEmailSignIn}
-      onGoogleSignIn={handleGoogleSignIn}
-      onResetPassword={handleResetPassword}
-      onCreateAccount={handleCreateAccount}
+      onSignIn={handleEmailSignUp}
+      onGoogleSignIn={handleGoogleSignUp}
+      onCreateAccount={handleBackToLogin}
     />
   )
 }
