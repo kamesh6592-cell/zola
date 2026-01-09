@@ -100,8 +100,10 @@ export default function LoginPage() {
 
   return (
     <SignInPage
+      title={<span className="font-light text-foreground tracking-tighter">Welcome to MEOW CHAT</span>}
+      description="Sign in below to increase your message limits and unlock all features"
+      onSignIn={handleEmailSignIn}
       onGoogleSignIn={handleGoogleSignIn}
-      onEmailSignIn={handleEmailSignIn}
       onResetPassword={handleResetPassword}
       onCreateAccount={handleCreateAccount}
     />

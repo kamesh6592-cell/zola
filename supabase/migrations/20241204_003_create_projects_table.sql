@@ -13,7 +13,7 @@ CREATE INDEX IF NOT EXISTS idx_projects_user_id ON projects(user_id);
 CREATE INDEX IF NOT EXISTS idx_projects_created_at ON projects(created_at);
 
 -- Enable RLS on projects table
-ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
+ALTER TABLE projects ENABLE ROW LEVEL SECURITY;                                                                                                                                                                                                                                                                                         
 
 -- Drop existing policies if they exist
 DROP POLICY IF EXISTS "Users can manage their own projects" ON projects;
