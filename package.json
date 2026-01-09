@@ -1,8 +1,8 @@
 {
-  "name": "aj-kamesh-ai-chat",
+  "name": "meow-chat-aj-kamesh",
   "version": "1.0.0",
   "private": true,
-  "description": "AJ KAMESH Personal AI Chat Interface - Multi-model AI assistant for personal use",
+  "description": "MEOW CHAT - AJ KAMESH's Personal AI Chat Interface - Multi-model AI assistant for AJ KAMESH's personal use",
   "author": "AJ KAMESH",
   "scripts": {
     "dev": "next dev --turbopack",

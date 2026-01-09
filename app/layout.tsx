@@ -27,45 +27,45 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "AJ KAMESH AI - Personal Multi-Model AI Assistant",
-    template: "%s | AJ KAMESH AI"
+    default: "MEOW CHAT - AJ KAMESH's Personal AI Assistant",
+    template: "%s | MEOW CHAT"
   },
   description:
-    "AJ KAMESH's Personal AI Chat Interface - Advanced multi-model AI assistant with GPT-4, Claude, Gemini, Grok, and more. Powered by AJ STUDIOZ.",
+    "MEOW CHAT - AJ KAMESH's personal multi-model AI chat interface with GPT-4, Claude, Gemini, Grok, and more. Your personal AI assistant powered by AJ STUDIOZ.",
   keywords: [
-    "AJ KAMESH", "AI chat", "personal AI", "ChatGPT", "Claude chat", 
+    "MEOW CHAT", "AJ KAMESH", "AI chat", "personal AI", "ChatGPT", "Claude chat", 
     "Gemini chat", "Grok chat", "AI assistant", "multi-model AI", "AJ STUDIOZ",
     "AI chatbot", "artificial intelligence", "GPT-4", "local AI", "Ollama"
   ],
   authors: [{ name: "AJ KAMESH" }, { name: "AJ STUDIOZ" }],
   creator: "AJ KAMESH",
   publisher: "AJ STUDIOZ",
-  metadataBase: new URL("https://ai.ajkamesh.com"),
+  metadataBase: new URL("https://www.meowchat.ajstudioz.co.in"),
   alternates: {
-    canonical: "https://ai.ajkamesh.com"
+    canonical: "https://www.meowchat.ajstudioz.co.in"
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://ai.ajkamesh.com",
-    title: "AJ KAMESH AI - Personal Multi-Model AI Assistant",
-    description: "AJ KAMESH's Personal AI Chat Interface with GPT-4, Claude, Gemini, Grok, and more. Advanced multi-model AI powered by AJ STUDIOZ.",
-    siteName: "AJ KAMESH AI",
+    url: "https://www.meowchat.ajstudioz.co.in",
+    title: "MEOW CHAT - AJ KAMESH's Personal AI Assistant",
+    description: "MEOW CHAT - AJ KAMESH's personal AI chat with GPT-4, Claude, Gemini, Grok, and more. Multi-model AI powered by AJ STUDIOZ.",
+    siteName: "MEOW CHAT - AJ KAMESH's AI",
     images: [
       {
-        url: "https://ai.ajkamesh.com/og-image",
+        url: "https://www.meowchat.ajstudioz.co.in/og-image",
         width: 1200,
         height: 630,
-        alt: "AJ KAMESH AI - Personal Multi-Model AI Assistant",
+        alt: "MEOW CHAT - AJ KAMESH's Personal AI Assistant",
         type: "image/png"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "AJ KAMESH AI - Personal Multi-Model AI Assistant",
-    description: "Personal AI Chat Interface with GPT-4, Claude, Gemini, Grok, and more. Powered by AJ STUDIOZ.",
-    images: ["https://ai.ajkamesh.com/og-image"]
+    title: "MEOW CHAT - AJ KAMESH's Personal AI Assistant",
+    description: "AJ KAMESH's personal AI chat with GPT-4, Claude, Gemini, Grok, and more. Powered by AJ STUDIOZ.",
+    images: ["https://www.meowchat.ajstudioz.co.in/og-image"]
   },
   robots: {
     index: true,

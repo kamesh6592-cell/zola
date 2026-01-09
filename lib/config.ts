@@ -32,8 +32,8 @@ export const MODEL_DEFAULT = "gemini-2.5-flash-lite"
 // Admin Configuration
 export const ADMIN_EMAILS = ["kamesh6592@gmail.com"]
 
-export const APP_NAME = "AJ KAMESH AI"
-export const APP_DOMAIN = "https://ai.ajkamesh.com"
+export const APP_NAME = "MEOW CHAT"
+export const APP_DOMAIN = "https://www.meowchat.ajstudioz.co.in"
 
 export const SUGGESTIONS = [
   {
@@ -122,6 +122,6 @@ export const SUGGESTIONS = [
   },
 ]
 
-export const SYSTEM_PROMPT_DEFAULT = `You are AJ KAMESH AI, a personal AI assistant created for AJ KAMESH. Be concise, helpful, and direct. Provide intelligent responses tailored to assist with coding, research, creative tasks, and daily productivity. Keep responses clear and focused unless detailed explanations are requested.`
+export const SYSTEM_PROMPT_DEFAULT = `You are MEOW CHAT, AJ KAMESH's personal AI assistant. Be concise, helpful, and direct. Provide intelligent responses tailored to assist AJ KAMESH with coding, research, creative tasks, and daily productivity. Keep responses clear and focused unless detailed explanations are requested.`
 
 export const MESSAGE_MAX_LENGTH = 10000

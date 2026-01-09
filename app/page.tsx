@@ -6,21 +6,21 @@ import Script from "next/script"
 export const dynamic = "force-dynamic"
 
 export const metadata = {
-  title: "AJ KAMESH AI - Personal Multi-Model AI Chat",
-  description: "Chat with GPT-4, Claude, Gemini, Grok and more AI models. AJ KAMESH's personal AI assistant powered by AJ STUDIOZ.",
-  keywords: "AJ KAMESH, ai chat, gpt-4, claude, gemini, grok, ai assistant, personal ai, artificial intelligence",
+  title: "MEOW CHAT - AJ KAMESH's Personal AI Chat",
+  description: "MEOW CHAT - Chat with GPT-4, Claude, Gemini, Grok and more AI models. AJ KAMESH's personal AI assistant powered by AJ STUDIOZ.",
+  keywords: "meow chat, AJ KAMESH, ai chat, gpt-4, claude, gemini, grok, ai assistant, personal ai, artificial intelligence",
 }
 
 export default function Home() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "AJ KAMESH AI - Personal AI Assistant",
-    "url": "https://ai.ajkamesh.com",
-    "description": "Personal AI chat with multiple models - GPT-4, Claude, Gemini, Grok and more",
+    "name": "MEOW CHAT - AJ KAMESH's Personal AI Assistant",
+    "url": "https://www.meowchat.ajstudioz.co.in",
+    "description": "MEOW CHAT - AJ KAMESH's personal AI chat with multiple models - GPT-4, Claude, Gemini, Grok and more",
     "mainEntity": {
       "@type": "WebApplication",
-      "name": "AJ KAMESH AI by AJ STUDIOZ",
+      "name": "MEOW CHAT by AJ STUDIOZ for AJ KAMESH",
       "applicationCategory": "ProductivityApplication",
       "author": {
         "@type": "Person",
