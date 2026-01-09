@@ -1,26 +1,109 @@
 "use client"
 
-import { LoginForm } from "@/components/login-form"
-import { HeaderGoBack } from "../components/header-go-back"
+import { SignInPage } from "@/components/sign-in"
+import { createClient } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
+import { toast } from "@/components/ui/toast"
 
 export default function LoginPage() {
-  return (
-    <div className="bg-background flex h-dvh w-full flex-col">
-      <HeaderGoBack href="/" />
+  const router = useRouter()
+  const supabase = createClient()
 
-      <main className="flex flex-1 flex-col items-center justify-center px-4 sm:px-6">
-        <div className="w-full max-w-4xl">
-          <div className="text-center mb-8">
-            <h1 className="text-foreground text-3xl font-medium tracking-tight sm:text-4xl">
-              Welcome to MEOW CHAT
-            </h1>
-            <p className="text-muted-foreground mt-3">
-              Sign in below to increase your message limits.
-            </p>
-          </div>
-          <LoginForm />
-        </div>
-      </main>
-    </div>
+  const handleGoogleSignIn = async () => {
+    if (!supabase) {
+      toast({
+        title: "Configuration Error",
+        description: "Supabase is not configured. Please check your environment variables.",
+        status: "error",
+      })
+      return
+    }
+
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
+      
+      if (error) {
+        toast({
+          title: "Authentication Error",
+          description: error.message,
+          status: "error",
+        })
+      }
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Failed to sign in with Google",
+        status: "error",
+      })
+    }
+  }
+
+  const handleEmailSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+
+    if (!supabase) {
+      toast({
+        title: "Configuration Error",
+        description: "Supabase is not configured. Please check your environment variables.",
+        status: "error",
+      })
+      return
+    }
+
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+
+      if (error) {
+        toast({
+          title: "Sign In Failed",
+          description: error.message,
+          status: "error",
+        })
+        return
+      }
+
+      toast({
+        title: "Welcome back!",
+        description: "Successfully signed in to MEOW CHAT",
+        status: "success",
+      })
+      
+      router.push('/')
+      router.refresh()
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred",
+        status: "error",
+      })
+    }
+  }
+
+  const handleResetPassword = () => {
+    router.push('/reset-password')
+  }
+
+  const handleCreateAccount = () => {
+    router.push('/signup')
+  }
+
+  return (
+    <SignInPage
+      onGoogleSignIn={handleGoogleSignIn}
+      onEmailSignIn={handleEmailSignIn}
+      onResetPassword={handleResetPassword}
+      onCreateAccount={handleCreateAccount}
+    />
   )
 }
