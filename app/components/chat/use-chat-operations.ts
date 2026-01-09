@@ -41,12 +41,37 @@ export function useChatOperations({
       const rateData = await checkRateLimits(uid, isAuthenticated)
 
       if (rateData.remaining === 0 && !isAuthenticated) {
-        // Redirect to sign-in page instead of showing dialog
-        window.location.href = "/auth"
+        // Show login reminder toast instead of forcing redirect
+        toast({
+          title: "Daily limit reached!",
+          description: "Login to continue chatting with unlimited messages.",
+          status: "warning",
+          button: {
+            label: "Login",
+            onClick: () => {
+              window.location.href = "/login"
+            },
+          },
+        })
         return false
       }
 
-      if (rateData.remaining === REMAINING_QUERY_ALERT_THRESHOLD) {
+      // Show login reminder every 5 messages for guests
+      if (!isAuthenticated && rateData.count > 0 && rateData.count % 5 === 0) {
+        toast({
+          title: "💡 Tip: Login for unlimited access",
+          description: `You've sent ${rateData.count} messages. Login to get unlimited messages and save your chats!`,
+          status: "info",
+          button: {
+            label: "Login Now",
+            onClick: () => {
+              window.location.href = "/login"
+            },
+          },
+        })
+      }
+
+      if (rateData.remaining === REMAINING_QUERY_ALERT_THRESHOLD && isAuthenticated) {
         toast({
           title: `Only ${rateData.remaining} quer${
             rateData.remaining === 1 ? "y" : "ies"
@@ -67,7 +92,7 @@ export function useChatOperations({
       return true
     } catch (err) {
       console.error("Rate limit check failed:", err)
-      return false
+      return true // Allow chat to continue even if rate limit check fails
     }
   }
 
