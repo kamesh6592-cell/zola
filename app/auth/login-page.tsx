@@ -100,8 +100,21 @@ export default function LoginPage() {
 
   return (
     <SignInPage
-      title={<span className="font-light text-foreground tracking-tighter">Welcome to MEOW CHAT</span>}
-      description="Sign in below to increase your message limits and unlock all features"
+      title={
+        <>
+          Welcome to <span className="text-primary">MEOW CHAT</span>
+        </>
+      }
+      description="Your personal AI assistant by AJ KAMESH - Chat with multiple AI models"
+      heroImageSrc="/cover_zola.jpg"
+      testimonials={[
+        {
+          avatarSrc: "/AJ.svg",
+          name: "AJ KAMESH",
+          handle: "@ajkamesh",
+          text: "The best multi-model AI chat interface I've built for personal use!",
+        },
+      ]}
       onSignIn={handleEmailSignIn}
       onGoogleSignIn={handleGoogleSignIn}
       onResetPassword={handleResetPassword}
